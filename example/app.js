@@ -1,18 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ImmutableTree from "../ImmutableTree";
+import ImmutableTree from "../src/ImmutableTree";
 import data from "./data";
-import Immutable from 'immutable'
+import Immutable from "immutable";
 
 class DemoTree extends React.Component {
   constructor() {
     super();
 
-    this.state = { data };
-    this.onToggle = this.onToggle.bind(this);
+    this.state = { treeData: Immutable.fromJS(data) };
+    this.onExpand = this.onExpand.bind(this);
   }
 
-  onToggle(node, toggled) {
+  onExpand(node, toggled) {
     const { cursor } = this.state;
 
     if (cursor) {
@@ -28,34 +28,10 @@ class DemoTree extends React.Component {
   }
 
   render() {
-    const { data: stateData, cursor } = this.state;
+    const { treeData } = this.state;
 
     return (
-      <StyleRoot>
-        <div style={styles.searchBox}>
-          <div className="input-group">
-            <span className="input-group-addon">
-              <i className="fa fa-search" />
-            </span>
-            <input
-              className="form-control"
-              onKeyUp={this.onFilterMouseUp.bind(this)}
-              placeholder="Search the tree..."
-              type="text"
-            />
-          </div>
-        </div>
-        <div style={styles.component}>
-          <Treebeard
-            data={data}
-            decorators={decorators}
-            onToggle={this.onToggle}
-          />
-        </div>
-        <div style={styles.component}>
-          <NodeViewer node={cursor} />
-        </div>
-      </StyleRoot>
+      <ImmutableTree data={treeData}/>
     );
   }
 }
