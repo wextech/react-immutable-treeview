@@ -1,5 +1,5 @@
 {
-  "name": "react-immutable-tree",
+  "name": "react-immutable-treeview",
   "version": "0.1.0",
   "description": "React Tree View Component Accept Immutable.js Data",
   "main": "index.js",
