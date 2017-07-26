@@ -28,7 +28,11 @@ export default class ExpandButton extends React.Component {
           duration={props.duration}
           animation={{ rotateZ: props.expanded ? 90 : 0 }}
         >
-          <svg height={height} width={width}>
+          <svg
+            height={height}
+            width={width}
+            viewBox={`0, 0, ${props.width}, ${props.height}`}
+          >
             <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" />
           </svg>
         </VelocityComponent>
