@@ -7,7 +7,7 @@ import Immutable from "immutable";
 
 export default class ImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
-    return function(e, subNodePath, flag) {
+    return function (e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
       if (Immutable.Iterable.isIndexed(this.props.data)) {
         this.props[onEventType](
@@ -17,7 +17,8 @@ export default class ImmutableTree extends React.Component {
           this.props.data.get(subNodePath)
         );
       } else {
-        let nodePath = subNodePath.slice(2);
+        let nodePath = subNodePath
+        nodePath = subNodePath.slice(2);
         if (nodePath.length !== 0) {
           nodePath = ["children"].concat(nodePath);
         }
@@ -40,7 +41,7 @@ export default class ImmutableTree extends React.Component {
 
   render() {
     const props = this.props;
-    let { data, options, keyField } = props;
+    let { data, options, keyField, lastNode } = props;
     if (!Immutable.Iterable.isIndexed(data)) {
       data = Immutable.List.of(data);
     }

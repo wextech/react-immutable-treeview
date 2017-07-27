@@ -7,6 +7,7 @@
     "prepublish": "npm run lib",
     "lib": "npm run babel",
     "babel": "rimraf lib && babel src/ -d lib/",
+    "start": "node devServer.js",
     "example": "webpack-dev-server --content-base ./example/ --config ./example/webpack.config.js"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "prop-types": ">=15",
     "react": ">=14",
     "react-dom": ">=14",
+    "react-router-dom": "^4.1.2",
     "velocity-react": ">=1"
   }
 }

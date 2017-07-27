@@ -7,7 +7,7 @@ import BaseImmutableTree from "./BaseImmutableTree";
 
 export default class SubImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
-    return function(e, subNodePath, flag) {
+    return function (e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
       let nodePath = [this.props.location];
       if (subNodePath.length !== 0)

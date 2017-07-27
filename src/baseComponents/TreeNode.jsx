@@ -23,20 +23,20 @@ export default class TreeNode extends React.Component {
       >
         {displayExpandButton
           ? <ExpandButton
-              height={styles.treeNodeHeight}
-              width={styles.expandButtonWidth}
-              duration={styles.animationDuration}
-              expanded={props.expanded}
-              onClick={props.onExpand}
-            />
+            height={styles.treeNodeHeight}
+            width={styles.expandButtonWidth}
+            duration={styles.animationDuration}
+            expanded={props.expanded}
+            onClick={props.onExpand}
+          />
           : null}
         {props.displayCheckBox
           ? <div>
-              <Checkbox
-                disabled={props.displayCheckbox}
-                checked={props.checked}
-              />
-            </div>
+            <Checkbox
+              disabled={props.displayCheckbox}
+              checked={props.checked}
+            />
+          </div>
           : null}
         <div>
           <span
@@ -85,7 +85,7 @@ TreeNode.defaultProps = {
   displayExpandButton: true,
   expanded: false,
   activated: false,
-  onClick: () => {},
-  onExpand: () => {},
-  onCheck: () => {}
+  onClick: () => { },
+  onExpand: () => { },
+  onCheck: () => { }
 };

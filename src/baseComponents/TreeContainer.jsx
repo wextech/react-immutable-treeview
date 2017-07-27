@@ -13,6 +13,7 @@ export default class TreeContainer extends React.Component {
           margin: 0,
           paddingLeft: props.paddingLeft + "px"
         }}
+        runOnMount={true}
         enter={{
           animation: "slideDown",
           duration: styles.animationDuration

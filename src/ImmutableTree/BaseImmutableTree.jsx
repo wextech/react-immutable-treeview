@@ -21,8 +21,10 @@ export default class BaseImmutableTree extends React.Component {
               nodeData.get("children") != null
             ])}
             expanded={nodeData.get("expanded") || undefined}
-            onExpand={e =>
-              props.onExpand(e, [index], !nodeData.get("expanded"))}
+            onExpand={(e, expanded) => {
+              props.onExpand(e, [index], expanded)
+            }
+            }
             activated={nodeData.get("activated") || undefined}
             onClick={e => props.onClick(e, [index], !nodeData.get("activated"))}
             displayCheckBox={priorityGet([
@@ -34,15 +36,15 @@ export default class BaseImmutableTree extends React.Component {
           >
             {nodeData.get("children")
               ? <SubImmutableTree
-                  keyField={props.keyField}
-                  expanded={nodeData.get("expanded") || undefined}
-                  data={nodeData.get("children")}
-                  location={index}
-                  options={props.options}
-                  onCheck={props.onCheck}
-                  onClick={props.onClick}
-                  onExpand={props.onExpand}
-                />
+                keyField={props.keyField}
+                expanded={nodeData.get("expanded") || undefined}
+                data={nodeData.get("children")}
+                location={index}
+                options={props.options}
+                onCheck={props.onCheck}
+                onClick={props.onClick}
+                onExpand={props.onExpand}
+              />
               : null}
           </TreeNode>
         )}

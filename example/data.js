@@ -1,12 +1,15 @@
 export default {
   title: "react-immutable-treeview",
   expanded: true,
+  activated: true,
   children: [
     {
       title: "normal",
+      expanded: true,
       children: [
         {
-          title: "normal_child"
+          title: "normal_child",
+          expanded: true
         },
         {
           title: "normal_child_with_data",
@@ -16,6 +19,7 @@ export default {
         },
         {
           title: "normal_child_with_children",
+          expanded: false,
           children: [
             {
               title: "child1"

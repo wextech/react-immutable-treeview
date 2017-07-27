@@ -1,13 +1,13 @@
 const webpack = require("webpack");
-
+var path = require("path");
 module.exports = {
   entry: [
-    "webpack-dev-server/client?http://0.0.0.0:8080",
+    "webpack-dev-server/client?http://localhost:8080",
     "webpack/hot/only-dev-server",
-    "./example/app.js"
+    "./example/App.jsx"
   ],
   output: {
-    path: __dirname,
+    path: path.join(__dirname, "tmp"),
     filename: "main.js",
     publicPath: "/assets/"
   },
