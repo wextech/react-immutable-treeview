@@ -1,0 +1,9 @@
+node_modules/
+src/
+example/
+lib/
+.babelrc
+devServer
+package.json
+package-lock.json
+yarn.lock
