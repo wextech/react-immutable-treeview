@@ -119,7 +119,7 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/" },
+            { to: "/react-immutable-treeview/" },
             "basic example"
           )
         ),
@@ -128,14 +128,14 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/insert_remove" },
+            { to: "/react-immutable-treeview/insert_remove" },
             "insert and reomve example"
           )
         )
       ),
       _react2.default.createElement("hr", null),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _BasicExample2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: "/insert_remove", component: _InsertAndReomve2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/react-immutable-treeview/", component: _BasicExample2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/react-immutable-treeview/insert_remove", component: _InsertAndReomve2.default })
     )
   );
 };
@@ -201,8 +201,6 @@ var BasicExample = function (_React$Component) {
     };
     _this.onExpand = _this.onExpand.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
-    _this.onRemove = _this.onRemove.bind(_this);
-    _this.onInsert = _this.onInsert.bind(_this);
     return _this;
   }
 
@@ -222,39 +220,10 @@ var BasicExample = function (_React$Component) {
           treeData = _state.treeData,
           lastNodePath = _state.lastNodePath;
 
-
       if (lastNodePath && treeData.hasIn(lastNodePath)) {
         treeData = treeData.setIn(lastNodePath.concat('activated'), false);
       }
       this.setState({ lastNodePath: toggled ? node : null, treeData: treeData.setIn(node.concat('activated'), toggled) });
-    }
-  }, {
-    key: "onInsert",
-    value: function onInsert(e, node) {
-      var _state2 = this.state,
-          treeData = _state2.treeData,
-          lastNodePath = _state2.lastNodePath;
-
-      if (lastNodePath === null) return;
-      var insertPath = node.concat('children');
-
-      this.setState({
-        treeData: (treeData.hasIn(insertPath) ? treeData.updateIn(insertPath, function (list) {
-          return list.push(_immutable2.default.Map({ title: 'new item' }));
-        }) : treeData.setIn(insertPath, _immutable2.default.fromJS([{ title: 'new item' }]))).setIn(node.concat('expanded'), true)
-      });
-    }
-  }, {
-    key: "onRemove",
-    value: function onRemove(e, node) {
-      var _state3 = this.state,
-          treeData = _state3.treeData,
-          lastNodePath = _state3.lastNodePath;
-
-      if (lastNodePath === null) return;
-      this.setState({
-        treeData: treeData.deleteIn(node)
-      });
     }
   }, {
     key: "render",
@@ -264,7 +233,7 @@ var BasicExample = function (_React$Component) {
 
       return _react2.default.createElement(
         "div",
-        null,
+        { style: { display: 'flex' } },
         _react2.default.createElement(
           "div",
           { style: { width: '20%', boxSizing: 'border-box' } },
@@ -272,8 +241,6 @@ var BasicExample = function (_React$Component) {
             data: treeData,
             onExpand: this.onExpand,
             onClick: this.onClick,
-            onInsert: this.onInsert,
-            onRemove: this.onRemove,
             lastNode: this.state.lastNodePath })
         ),
         _react2.default.createElement(
