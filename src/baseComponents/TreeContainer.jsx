@@ -8,6 +8,7 @@ export default class TreeContainer extends React.Component {
     return (
       <VelocityTransitionGroup
         component="ul"
+        runOnMount={true}
         style={{
           listStyle: "none",
           margin: 0,

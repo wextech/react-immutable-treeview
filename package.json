@@ -7,9 +7,9 @@
     "prepublish": "npm run lib",
     "lib": "npm run babel",
     "babel": "rimraf lib && babel src/ -d lib/",
-    "start": "node devServer.js",
+    "example": "node devServer.js",
     "clean": "rimraf dist",
-    "build": "npm run clean &&webpack --colors --config ./example/webpack.config.prod.js"
+    "build:example": "npm run clean &&webpack --colors --config ./example/webpack.config.prod.js"
   },
   "repository": {
     "type": "git",

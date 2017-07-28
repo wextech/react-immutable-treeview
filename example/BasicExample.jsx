@@ -14,6 +14,7 @@ class BasicExample extends React.Component {
     this.onExpand = this.onExpand.bind(this);
     this.onClick = this.onClick.bind(this)
   }
+  
   onExpand(e, node, toggled) {
     const { treeData } = this.state;
     this.setState({
