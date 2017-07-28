@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import ImmutableTree from "../src/ImmutableTree";
 import data from "./data";
 import Immutable from "immutable";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Route, Link } from "react-router-dom";
 import BasicExample from "./BasicExample";
 import InsertAndReomve from "./InsertAndReomve";
 
