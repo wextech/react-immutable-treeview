@@ -13,14 +13,14 @@ import InsertAndReomve from './InsertAndReomve'
 
 const App = () => (
   <Router>
-    <div>
+    <div style={{ width: '100%' }}>
       <ul>
-        <li><Link to="/">basic example</Link></li>
-        <li><Link to="/insert_remove">insert and reomve example</Link></li>
+        <li><Link to="/react-immutable-treeview/">basic example</Link></li>
+        <li><Link to="/react-immutable-treeview/insert_remove">insert and reomve example</Link></li>
       </ul>
       <hr />
-      <Route exact path="/" component={BasicExample} />
-      <Route path="/insert_remove" component={InsertAndReomve} />
+      <Route exact path="/react-immutable-treeview/" component={BasicExample} />
+      <Route path="/react-immutable-treeview/insert_remove" component={InsertAndReomve} />
     </div>
   </Router>
 )

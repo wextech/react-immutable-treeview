@@ -77,7 +77,7 @@ class InsertAndReomve extends React.Component {
     const { treeData, newItemForm } = this.state;
     return (
       <div style={{ display: 'flex' }}>
-        <div style={{ width: '20%', boxSizing: 'border-box' }}>
+        <div style={{ width: '30%', boxSizing: 'border-box' }}>
           <div style={{ display: 'flex', marginBottom: '.5rem' }}>
             <div style={{ display: 'flex' }}>
               <input

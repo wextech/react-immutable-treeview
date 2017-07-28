@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var config = require('./example/webpack.config');
+var config = require('./example/webpack.config.dev');
 var path = require('path')
 const port = process.env.npm_package_config_port || 8080;
 const host = process.env.npm_package_config_host || 'localhost';
