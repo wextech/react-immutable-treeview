@@ -7,8 +7,7 @@
     "prepublish": "npm run lib",
     "lib": "npm run babel",
     "babel": "rimraf lib && babel src/ -d lib/",
-    "start": "node devServer.js",
-    "example": "webpack-dev-server --content-base ./example/ --config ./example/webpack.config.js"
+    "example": "node devServer.js"
   },
   "repository": {
     "type": "git",
@@ -41,6 +40,7 @@
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
+    "babel-preset-stage-1": "^6.24.1",
     "immutable": ">=3",
     "material-ui": ">=0.16",
     "prop-types": ">=15",

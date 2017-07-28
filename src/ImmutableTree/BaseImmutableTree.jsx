@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import SubImmutableTree from "./SubImmutableTree";
-import { priorityGet } from "./util";
 
 export default class BaseImmutableTree extends React.Component {
   render() {
@@ -15,36 +14,34 @@ export default class BaseImmutableTree extends React.Component {
             key={nodeData.get("id") || index}
             data={nodeData}
             title={nodeData.get("title")}
-            displayExpandButton={priorityGet([
-              nodeData.get("displayExpandButton"),
-              props.options.displayExpandButton,
+            expandButtonDisplay={
+              nodeData.get("expandButtonDisplay") ||
+              props.options.expandButtonDisplay ||
               nodeData.get("children") != null
-            ])}
+            }
             expanded={nodeData.get("expanded") || undefined}
-            onExpand={(e, expanded) => {
-              props.onExpand(e, [index], expanded)
-            }
-            }
+            onExpand={e =>
+              props.onExpand(e, [index], !nodeData.get("expanded"))}
             activated={nodeData.get("activated") || undefined}
             onClick={e => props.onClick(e, [index], !nodeData.get("activated"))}
-            displayCheckBox={priorityGet([
-              nodeData.get("displayCheckBox"),
-              props.options.displayCheckBox
-            ])}
+            checkboxDisplay={
+              nodeData.get("checkboxDisplay") || props.options.checkboxDisplay
+            }
+            checkboxDisabled={nodeData.get("checkboxDisabled")}
             checked={nodeData.get("checked") || undefined}
-            onCheck={e => props.onCheck(e, [index], !nodeData.get("checked"))}
+            onCheck={(e, checked) => props.onCheck(e, [index], checked)}
           >
             {nodeData.get("children")
               ? <SubImmutableTree
-                keyField={props.keyField}
-                expanded={nodeData.get("expanded") || undefined}
-                data={nodeData.get("children")}
-                location={index}
-                options={props.options}
-                onCheck={props.onCheck}
-                onClick={props.onClick}
-                onExpand={props.onExpand}
-              />
+                  keyField={props.keyField}
+                  expanded={nodeData.get("expanded") || undefined}
+                  data={nodeData.get("children")}
+                  location={index}
+                  options={props.options}
+                  onCheck={props.onCheck}
+                  onClick={props.onClick}
+                  onExpand={props.onExpand}
+                />
               : null}
           </TreeNode>
         )}
@@ -59,7 +56,7 @@ BaseImmutableTree.propTypes = {
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func,
-  paddingLeft: PropTypes.any,
+  paddingLeft: PropTypes.string,
   expanded: PropTypes.bool
 };
 

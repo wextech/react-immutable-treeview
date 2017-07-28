@@ -1,12 +1,5 @@
 import Immutable from "immutable";
 
-export function priorityGet(evidenceArray) {
-  for (let i = 0; i < evidenceArray.length; i++) {
-    if (evidenceArray[i] != null) return evidenceArray[i];
-  }
-  return undefined;
-}
-
 export function findNodePathById(immutableTreeData, id) {
   if (id == null) return null;
   if (Immutable.Iterable.isIndexed(immutableTreeData)) {

@@ -5,15 +5,13 @@ import PropTypes from "prop-types";
 export default class ExpandButton extends React.Component {
   render() {
     const props = this.props;
-    let width = props.width + "px",
-      height = props.height + "px";
     return (
       <div
         style={{
-          minWidth: width,
-          minHeight: height,
-          width: width,
-          height: height,
+          minWidth: props.width,
+          minHeight: props.height,
+          width: props.width,
+          height: props.height,
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end",
@@ -28,11 +26,7 @@ export default class ExpandButton extends React.Component {
           duration={props.duration}
           animation={{ rotateZ: props.expanded ? 90 : 0 }}
         >
-          <svg
-            height={height}
-            width={width}
-            viewBox={`0, 0, ${props.width}, ${props.height}`}
-          >
+          <svg height="24px" width="24px" viewBox="0, 0, 24, 24">
             <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" />
           </svg>
         </VelocityComponent>
@@ -42,8 +36,13 @@ export default class ExpandButton extends React.Component {
 }
 
 ExpandButton.propTypes = {
-  height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  height: PropTypes.string,
+  width: PropTypes.string,
   expanded: PropTypes.bool.isRequired,
   duration: PropTypes.number.isRequired
+};
+
+ExpandButton.defaultProps = {
+  height: "32px",
+  width: "32px"
 };
