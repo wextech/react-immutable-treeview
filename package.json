@@ -43,6 +43,7 @@
     "webpack-dev-server": "^2.5.1"
   },
   "dependencies": {
+    "babel-preset-stage-1": "^6.24.1",
     "immutable": ">=3",
     "material-ui": ">=0.16",
     "prop-types": ">=15",

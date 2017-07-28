@@ -2,55 +2,51 @@ import React from "react";
 import PropTypes from "prop-types";
 import ExpandButton from "./ExpandButton";
 import styles from "./styles";
-import Checkbox from "material-ui/Checkbox";
+import Checkbox from "./Checkbox";
 
 export default class TreeNode extends React.Component {
   renderHeader() {
     const props = this.props;
-    let displayExpandButton =
-      props.displayExpandButton == null
+    let expandButtonDisplay =
+      props.expandButtonDisplay == null
         ? props.children == null ? false : true
-        : props.displayExpandButton;
+        : props.expandButtonDisplay;
     return (
       <div
         style={{
           display: "flex",
           backgroundColor: props.activated
             ? "rgba(0, 0, 0, 0.2)"
-            : "rgba(0, 0, 0, 0)"
+            : "rgba(0, 0, 0, 0)",
+          height: styles.height
         }}
         onClick={e => props.onClick(e, true)}
       >
-        {displayExpandButton
+        {expandButtonDisplay
           ? <ExpandButton
-            height={styles.treeNodeHeight}
-            width={styles.expandButtonWidth}
-            duration={styles.animationDuration}
-            expanded={props.expanded}
-            onClick={props.onExpand}
-          />
-          : null}
-        {props.displayCheckBox
-          ? <div>
-            <Checkbox
-              disabled={props.displayCheckbox}
-              checked={props.checked}
+              duration={styles.animationDuration}
+              expanded={props.expanded}
+              onClick={props.onExpand}
             />
-          </div>
           : null}
-        <div>
-          <span
-            style={{
-              lineHeight: styles.treeNodeHeight + "px",
-              fontSize: styles.fontSize + "px",
-              whiteSpace: "nowrap",
-              cursor: "default",
-              padding: "0 8px"
-            }}
-          >
-            {props.title}
-          </span>
-        </div>
+        {props.checkboxDisplay
+          ? <Checkbox
+              disabled={props.checkboxDisabled}
+              checked={props.checked}
+              onChange={props.onCheck}
+            />
+          : null}
+        <span
+          style={{
+            lineHeight: styles.height,
+            fontSize: styles.fontSize + "px",
+            whiteSpace: "nowrap",
+            cursor: "default",
+            padding: "0 8px"
+          }}
+        >
+          {props.title}
+        </span>
       </div>
     );
   }
@@ -67,25 +63,26 @@ export default class TreeNode extends React.Component {
 
 TreeNode.propTypes = {
   title: PropTypes.string,
-  checked: PropTypes.bool,
-  displayCheckbox: PropTypes.bool,
-  displayExpandButton: PropTypes.bool,
+  checked: PropTypes.string,
+  checkboxDisplay: PropTypes.bool,
+  expandButtonDisplay: PropTypes.bool,
   expanded: PropTypes.bool,
   activated: PropTypes.bool,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func,
-  children: PropTypes.any
+  children: PropTypes.any,
+  checkboxDisabled: PropTypes.bool
 };
 
 TreeNode.defaultProps = {
   title: "",
-  checked: false,
-  displayCheckbox: true,
-  displayExpandButton: true,
+  checked: "unchecked",
+  checkboxDisplay: false,
+  expandButtonDisplay: true,
   expanded: false,
   activated: false,
-  onClick: () => { },
-  onExpand: () => { },
-  onCheck: () => { }
+  onClick: () => {},
+  onExpand: () => {},
+  onCheck: () => {}
 };

@@ -17,8 +17,7 @@ export default class ImmutableTree extends React.Component {
           this.props.data.get(subNodePath)
         );
       } else {
-        let nodePath = subNodePath
-        nodePath = subNodePath.slice(2);
+        let nodePath = subNodePath.slice(2);
         if (nodePath.length !== 0) {
           nodePath = ["children"].concat(nodePath);
         }
@@ -41,7 +40,7 @@ export default class ImmutableTree extends React.Component {
 
   render() {
     const props = this.props;
-    let { data, options, keyField, lastNode } = props;
+    let { data, options, keyField } = props;
     if (!Immutable.Iterable.isIndexed(data)) {
       data = Immutable.List.of(data);
     }
@@ -53,7 +52,7 @@ export default class ImmutableTree extends React.Component {
         onClick={this.onClick}
         onExpand={this.onExpand}
         onCheck={this.onCheck}
-        paddingLeft={0}
+        paddingLeft="0"
       />
     );
   }

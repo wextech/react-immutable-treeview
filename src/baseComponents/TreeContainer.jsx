@@ -11,9 +11,8 @@ export default class TreeContainer extends React.Component {
         style={{
           listStyle: "none",
           margin: 0,
-          paddingLeft: props.paddingLeft + "px"
+          paddingLeft: props.paddingLeft
         }}
-        runOnMount={true}
         enter={{
           animation: "slideDown",
           duration: styles.animationDuration
@@ -33,10 +32,10 @@ TreeContainer.propTypes = {
   style: PropTypes.any,
   expanded: PropTypes.bool,
   children: PropTypes.any,
-  paddingLeft: PropTypes.number
+  paddingLeft: PropTypes.string
 };
 
 TreeContainer.defaultProps = {
-  paddingLeft: styles.expandButtonWidth,
+  paddingLeft: styles.levelPadding,
   expanded: false
 };

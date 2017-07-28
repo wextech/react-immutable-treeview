@@ -1,6 +1,6 @@
 export default {
-  treeNodeHeight: 24,
-  expandButtonWidth: 24,
+  height: "32px",
   animationDuration: 400,
-  fontSize: 16
+  fontSize: 16,
+  levelPadding: "32px"
 };
