@@ -26,7 +26,7 @@
     "animation"
   ],
   "author": "Hapood Wang",
-  "license": "Apache v2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/hapood/react-immutable-treeview/issues"
   },
