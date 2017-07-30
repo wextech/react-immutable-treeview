@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import ImmutablePropTypes from "react-immutable-proptypes";
 import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import BaseImmutableTree from "./BaseImmutableTree";
@@ -7,7 +8,7 @@ import Immutable from "immutable";
 
 export default class ImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
-    return function (e, subNodePath, flag) {
+    return function(e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
       if (Immutable.Iterable.isIndexed(this.props.data)) {
         this.props[onEventType](
@@ -60,7 +61,8 @@ export default class ImmutableTree extends React.Component {
 
 ImmutableTree.propTypes = {
   options: PropTypes.any,
-  data: PropTypes.any.isRequired,
+  data: PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list])
+    .isRequired,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func
