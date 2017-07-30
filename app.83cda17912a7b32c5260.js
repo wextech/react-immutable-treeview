@@ -107,7 +107,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = function App() {
   return _react2.default.createElement(
     _reactRouterDom.HashRouter,
-    null,
+    { hashType: "noslash" },
     _react2.default.createElement(
       "div",
       { style: { padding: "1rem" } },
@@ -119,7 +119,7 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/" },
+            { to: "/", replace: true },
             "basic example"
           )
         ),
@@ -128,7 +128,7 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/insert_remove" },
+            { to: "/insert_remove", replace: true },
             "insert and reomve example"
           )
         )
