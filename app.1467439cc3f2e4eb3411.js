@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/react-immutable-treeview/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "./example/App.jsx");
@@ -390,7 +390,6 @@ var InsertAndReomve = function (_React$Component) {
       var newItemForm = this.state.newItemForm;
 
       var title = newItemForm.get("title");
-      if (title === '') return;
       var key = this.state.key++;
       var _state2 = this.state,
           treeData = _state2.treeData,
