@@ -119,7 +119,7 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/react-immutable-treeview/" },
+            { to: "/" },
             "basic example"
           )
         ),
@@ -128,15 +128,15 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/react-immutable-treeview/insert_remove" },
+            { to: "/insert_remove" },
             "insert and reomve example"
           )
         )
       ),
       _react2.default.createElement("hr", null),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/react-immutable-treeview/", component: _BasicExample2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _BasicExample2.default }),
       _react2.default.createElement(_reactRouterDom.Route, {
-        path: "/react-immutable-treeview/insert_remove",
+        path: "/insert_remove",
         component: _InsertAndReomve2.default
       })
     )
@@ -390,6 +390,7 @@ var InsertAndReomve = function (_React$Component) {
       var newItemForm = this.state.newItemForm;
 
       var title = newItemForm.get("title");
+      if (title === '') return;
       var key = this.state.key++;
       var _state2 = this.state,
           treeData = _state2.treeData,
