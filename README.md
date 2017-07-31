@@ -132,4 +132,4 @@ The children attached to the node. This value populates the subtree at the speci
 Visibility of a node's children. False by default.
 
 #### activated
-If active, the node will be highlighted.
+If true, the node will be highlighted.

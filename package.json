@@ -1,6 +1,6 @@
 {
   "name": "react-immutable-treeview",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React Tree View Component Accept Immutable.js Data",
   "main": "index.js",
   "scripts": {
