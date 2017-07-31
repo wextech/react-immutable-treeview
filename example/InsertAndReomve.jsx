@@ -59,6 +59,7 @@ class InsertAndReomve extends React.Component {
   onInsert(e, nodePath) {
     let { newItemForm } = this.state;
     let title = newItemForm.get("title");
+    if (title == '') return
     let key = this.state.key++;
     let { treeData, lastNodePath } = this.state;
     let insertPath = nodePath.concat("children");
