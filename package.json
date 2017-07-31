@@ -4,14 +4,16 @@
   "description": "React Tree View Component Accept Immutable.js Data",
   "main": "index.js",
   "scripts": {
-    "prepublish": "npm run lib",
-    "lib": "npm run babel",
-    "babel": "rimraf lib && babel src/ -d lib/",
     "example": "node devServer.js",
+    "build": "npm run build:babel && npm run build:copy-files",
+    "build:babel": "cross-env NODE_ENV=release babel ./src --out-dir ./build --ignore spec.js",
+    "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "build:example": "npm run clean &&webpack --colors --config ./example/webpack.config.prod.js",
+    "clean:build": "rimraf build",
+    "prebuild": "npm run clean:build",
+    "postpublish": "npm run build && cd build && npm publish",
     "test": "karma start karma.conf.js",
-    "clean": "rimraf dist",
-    "test-travis": "karma start --browsers Firefox --single-run",
-    "build:example": "npm run clean &&webpack --colors --config ./example/webpack.config.prod.js"
+    "test-travis": "karma start --browsers Firefox --single-run"
   },
   "repository": {
     "type": "git",
@@ -38,7 +40,9 @@
     "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "chai": "^4.1.0",
+    "cross-env": "^5.0.1",
     "enzyme": "^2.9.1",
+    "fs-extra": "^4.0.0",
     "html-webpack-plugin": "^2.29.0",
     "istanbul-instrumenter-loader": "^3.0.0",
     "karma": "^1.7.0",
