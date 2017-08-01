@@ -15,15 +15,12 @@ export default class TreeNode extends React.Component {
       <div
         style={{
           display: "flex",
-          backgroundColor: props.activated
-            ? "rgba(0, 0, 0, 0.2)"
-            : "rgba(0, 0, 0, 0)",
           height: styles.height
         }}
-        onClick={e => props.onClick(e, true)}
       >
         {expandButtonDisplay
           ? <ExpandButton
+              width={props.expandButtonWidth}
               duration={styles.animationDuration}
               expanded={props.expanded}
               onClick={props.onExpand}
@@ -39,11 +36,19 @@ export default class TreeNode extends React.Component {
         <span
           style={{
             lineHeight: styles.height,
+            width: "100%",
             fontSize: styles.fontSize + "px",
+            backgroundColor: props.activated
+              ? "rgba(0, 0, 0, 0.2)"
+              : "rgba(0, 0, 0, 0)",
             whiteSpace: "nowrap",
             cursor: "default",
-            padding: "0 8px"
+            padding: "0 8px",
+            marginLeft: expandButtonDisplay ? null : props.expandButtonWidth,
+            overflow: "hidden",
+            textOverflow: "ellipsis"
           }}
+          onClick={e => props.onClick(e, true)}
         >
           {props.title}
         </span>
@@ -66,6 +71,7 @@ TreeNode.propTypes = {
   checked: PropTypes.string,
   checkboxDisplay: PropTypes.bool,
   expandButtonDisplay: PropTypes.bool,
+  expandButtonWidth: PropTypes.string,
   expanded: PropTypes.bool,
   activated: PropTypes.bool,
   onClick: PropTypes.func,
@@ -80,6 +86,7 @@ TreeNode.defaultProps = {
   checked: "unchecked",
   checkboxDisplay: false,
   expandButtonDisplay: true,
+  expandButtonWidth: styles.expandButtonWidth,
   expanded: false,
   activated: false,
   onClick: () => {},
