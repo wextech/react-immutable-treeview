@@ -4,7 +4,7 @@
   "description": "React Tree View Component Accept Immutable.js Data",
   "main": "index.js",
   "scripts": {
-    "example": "node devServer.js",
+    "example": "node ./example/devServer.js",
     "build": "npm run build:babel && npm run build:copy-files",
     "build:babel": "cross-env NODE_ENV=release babel ./src --out-dir ./build --ignore spec.js",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
