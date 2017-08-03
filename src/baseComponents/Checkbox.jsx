@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { VelocityComponent } from "velocity-react";
 import PropTypes from "prop-types";
-
+import { nullEventHandler } from '../common.js'
 function uncheckedIcon(props) {
   return (
     <svg
@@ -138,10 +138,10 @@ Checkbox.propTypes = {
 
 Checkbox.defaultProps = {
   checked: "unchecked",
-  onClick: () => {},
-  onChange: () => {},
-  onBlur: () => {},
-  onFocus: () => {},
+  onClick: nullEventHandler,
+  onChange: nullEventHandler,
+  onBlur: nullEventHandler,
+  onFocus: nullEventHandler,
   height: "32px",
   width: "32px",
   checkedColor: "rgb(0, 188, 212)",

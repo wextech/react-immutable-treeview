@@ -115,6 +115,7 @@ class InsertAndReomve extends React.Component {
           </div>
           <ImmutableTree
             data={treeData}
+            options={{ checkboxDisplay: true }}
             onExpand={this.onExpand}
             onClick={this.onClick}
           />
