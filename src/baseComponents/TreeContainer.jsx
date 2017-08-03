@@ -11,14 +11,14 @@ export default class TreeContainer extends React.Component {
       <VelocityTransitionGroup
         enter={{
           animation: "slideDown",
-          duration: styles.animationDuration,
-          stagger: styles.animationDuration
+          duration: props.animationDuration,
+          stagger: props.animationDuration
         }}
         runOnMount={true}
         leave={{
           animation: "slideUp",
-          duration: styles.animationDuration,
-          stagger: styles.animationDuration,
+          duration: props.animationDuration,
+          stagger: props.animationDuration,
           backwards: true
         }}
       >
@@ -32,13 +32,13 @@ export default class TreeContainer extends React.Component {
               }}
               enter={{
                 animation: "transition.slideLeftIn",
-                duration: styles.animationDuration,
-                stagger: styles.animationDuration
+                duration: props.animationDuration,
+                stagger: props.animationDuration
               }}
               leave={{
                 animation: "transition.slideRightOut",
-                duration: styles.animationDuration,
-                stagger: styles.animationDuration,
+                duration: props.animationDuration,
+                stagger: props.animationDuration,
                 backwards: true
               }}
             >
@@ -54,10 +54,12 @@ TreeContainer.propTypes = {
   style: PropTypes.any,
   expanded: PropTypes.bool,
   children: PropTypes.any,
+  animationDuration: PropTypes.number,
   paddingLeft: PropTypes.string
 };
 
 TreeContainer.defaultProps = {
   paddingLeft: styles.levelPadding,
-  expanded: false
+  expanded: false,
+  animationDuration: styles.animationDuration
 };
