@@ -1,6 +1,6 @@
 # react-immutable-treeview
 
-[![Build Status](https://travis-ci.org/hapood/react-immutable-treeview.svg?branch=master)](https://travis-ci.org/hapood/react-immutable-treeview) [![Coverage Status](https://coveralls.io/repos/hapood/react-immutable-treeview/badge.svg?branch=master&service=github)](https://coveralls.io/github/hapood/react-immutable-treeview?branch=master)
+[![Build Status](https://travis-ci.org/hapood/react-immutable-treeview.svg?branch=master)](https://travis-ci.org/hapood/react-immutable-treeview) [![Coverage Status](https://coveralls.io/repos/hapood/react-immutable-treeview/badge.svg?branch=master&service=github)](https://coveralls.io/github/hapood/react-immutable-treeview?branch=master)[![npm version](https://img.shields.io/npm/v/react-immutable-treeview.svg?style=flat)](https://www.npmjs.com/package/react-immutable-treeview) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
 ### Screenshots
 
@@ -16,9 +16,7 @@ React Tree View Component. Take Advantage of Immutable.js.
 npm install react-immutable-treeview --save
 ```
 
-
 An online example from the `/example` directory can be found here: [Here](https://hapood.github.io/react-immutable-treeview/)
-
 
 
 ### Quick Start
