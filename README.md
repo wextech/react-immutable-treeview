@@ -4,13 +4,14 @@
 [![npm version](https://img.shields.io/npm/v/react-immutable-treeview.svg?style=flat)](https://www.npmjs.com/package/react-immutable-treeview) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
+React Tree View Component. Take Advantage of Immutable.js.
+
 ## Screenshots
+
+### [Example](https://hapood.github.io/react-immutable-treeview/)
 
 <img src="https://raw.githubusercontent.com/hapood/react-immutable-treeview/e4dbfddfa934242fa41d151dc7f3ea2708d22972/immutableGif.gif" width="800"/>
 
-## [Example](https://hapood.github.io/react-immutable-treeview/)
-
-React Tree View Component. Take Advantage of Immutable.js.
 
 ## Install
 
