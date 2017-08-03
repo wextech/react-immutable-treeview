@@ -2,28 +2,49 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./styles";
 import { VelocityTransitionGroup } from "velocity-react";
+require("velocity-animate/velocity.ui");
+
 export default class TreeContainer extends React.Component {
   render() {
     const props = this.props;
     return (
       <VelocityTransitionGroup
-        component="ul"
-        runOnMount={true}
-        style={{
-          listStyle: "none",
-          margin: 0,
-          paddingLeft: props.paddingLeft
-        }}
         enter={{
           animation: "slideDown",
-          duration: styles.animationDuration
+          duration: styles.animationDuration,
+          stagger: styles.animationDuration
         }}
+        runOnMount={true}
         leave={{
           animation: "slideUp",
-          duration: styles.animationDuration
+          duration: styles.animationDuration,
+          stagger: styles.animationDuration,
+          backwards: true
         }}
       >
-        {props.expanded ? props.children : null}
+        {props.expanded
+          ? <VelocityTransitionGroup
+              component="ul"
+              style={{
+                listStyle: "none",
+                margin: 0,
+                paddingLeft: props.paddingLeft
+              }}
+              enter={{
+                animation: "transition.slideLeftIn",
+                duration: styles.animationDuration,
+                stagger: styles.animationDuration
+              }}
+              leave={{
+                animation: "transition.slideRightOut",
+                duration: styles.animationDuration,
+                stagger: styles.animationDuration,
+                backwards: true
+              }}
+            >
+              {props.children}
+            </VelocityTransitionGroup>
+          : null}
       </VelocityTransitionGroup>
     );
   }
