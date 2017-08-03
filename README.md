@@ -97,6 +97,14 @@ ReactDOM.render(<TreeExample/>, app);
 `PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]).isRequired`
 
 Immutable Data that drives the tree view. State-driven effects can be built by manipulating the attributes in this object. An example can be found in `example/data.js`
+#### options
+`PropTypes.object`
+
+The options contains four options
+* height:set the lineHeight, expandButton and checkbox height.
+* expandButtonWidth: Set the width of expandButton.
+* checkboxWidth: Set the width of checkboxWidth.
+* checkboxDisplay:Type of boolean, show checkbox or not.
 
 #### onExpand
 `PropTypes.func`

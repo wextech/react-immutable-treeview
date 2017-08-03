@@ -5,10 +5,11 @@ import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import BaseImmutableTree from "./BaseImmutableTree";
 import Immutable from "immutable";
+import styles from "../baseComponents/styles.js"
 
 export default class ImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
-    return function(e, subNodePath, flag) {
+    return function (e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
       if (Immutable.Iterable.isIndexed(this.props.data)) {
         this.props[onEventType](
@@ -38,7 +39,6 @@ export default class ImmutableTree extends React.Component {
     this.onExpand = this.eventFunctionFactory("onExpand").bind(this);
     this.onCheck = this.eventFunctionFactory("onCheck").bind(this);
   }
-
   render() {
     const props = this.props;
     let { data, options, keyField } = props;
@@ -49,7 +49,7 @@ export default class ImmutableTree extends React.Component {
       <BaseImmutableTree
         data={data}
         expanded={true}
-        options={options}
+        options={Object.assign({}, styles, options)}
         onClick={this.onClick}
         onExpand={this.onExpand}
         onCheck={this.onCheck}

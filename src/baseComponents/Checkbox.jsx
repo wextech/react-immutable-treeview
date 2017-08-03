@@ -2,12 +2,16 @@ import React, { Component } from "react";
 import { VelocityComponent } from "velocity-react";
 import PropTypes from "prop-types";
 import { nullEventHandler } from '../common.js'
+import styles from './styles.js'
 function uncheckedIcon(props) {
   return (
     <svg
       fill={props.disabled ? props.disabledColor : props.uncheckedColor}
       height="24"
       viewBox="0 0 24 24"
+      style={{
+        transition: "all " + styles.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+      }}
       width="24"
     >
       <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" />
@@ -32,7 +36,6 @@ export default class Checkbox extends Component {
     let { props } = this;
     this.props.onClick(e);
   };
-
   rendIcon = checked => {
     let { props } = this;
     switch (checked) {
@@ -40,6 +43,9 @@ export default class Checkbox extends Component {
         return (
           <svg
             fill={props.disabled ? props.disabledColor : props.checkedColor}
+            style={{
+              transition: "all " + styles.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+            }}
             height="24"
             viewBox="0 0 24 24"
             width="24"
@@ -58,6 +64,9 @@ export default class Checkbox extends Component {
             fill={
               props.disabled ? props.disabledColor : props.indeterminateColor
             }
+            style={{
+              transition: "all " + styles.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+            }}
             height="24"
             viewBox="0 0 24 24"
             width="24"
@@ -78,18 +87,18 @@ export default class Checkbox extends Component {
         return uncheckedIcon(props);
     }
   };
-
+  state = {
+    isShow: true
+  }
   render() {
     let { props } = this;
     return (
       <div
-        style={{
-          width: props.width,
-          height: props.height,
+        style={Object.assign({
           display: "flex",
           alignItems: "center",
           justifyContent: "flex-end"
-        }}
+        }, props.style)}
       >
         <input
           type="checkbox"
@@ -133,7 +142,8 @@ Checkbox.propTypes = {
   checkedColor: PropTypes.string,
   uncheckedColor: PropTypes.string,
   indeterminateColor: PropTypes.string,
-  disabledColor: PropTypes.string
+  disabledColor: PropTypes.string,
+  style: PropTypes.object
 };
 
 Checkbox.defaultProps = {
@@ -142,8 +152,10 @@ Checkbox.defaultProps = {
   onChange: nullEventHandler,
   onBlur: nullEventHandler,
   onFocus: nullEventHandler,
-  height: "32px",
-  width: "32px",
+  style: {
+    width: "32px",
+    height: "32px"
+  },
   checkedColor: "rgb(0, 188, 212)",
   uncheckedColor: "rgba(0, 0, 0, 0.870588)",
   indeterminateColor: "rgb(0, 188, 212)",

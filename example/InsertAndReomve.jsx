@@ -36,6 +36,7 @@ class InsertAndReomve extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onRemove = this.onRemove.bind(this);
     this.onInsert = this.onInsert.bind(this);
+    this.onCheck = this.onCheck.bind(this)
   }
 
   onExpand(e, nodePath, toggled) {
@@ -55,11 +56,19 @@ class InsertAndReomve extends React.Component {
       treeData: treeData.setIn(nodePath.concat("activated"), toggled)
     });
   }
+  onCheck(e, nodePath, toggled) {
+    let { treeData, lastNodePath } = this.state
+    this.setState({
+      lastNodePath: toggled ? nodePath : null,
+      treeData: treeData.setIn(nodePath.concat("checked"), toggled)
+    });
+
+  }
 
   onInsert(e, nodePath) {
     let { newItemForm } = this.state;
     let title = newItemForm.get("title");
-    if (title == '') return
+    if (title === '') return
     let key = this.state.key++;
     let { treeData, lastNodePath } = this.state;
     let insertPath = nodePath.concat("children");
@@ -115,9 +124,15 @@ class InsertAndReomve extends React.Component {
           </div>
           <ImmutableTree
             data={treeData}
-            options={{ checkboxDisplay: true }}
+            options={{
+              checkboxDisplay: true,
+              height: "32px",
+              checkboxWidth: "32px",
+              expandButtonWidth: "32px"
+            }}
             onExpand={this.onExpand}
             onClick={this.onClick}
+            onCheck={this.onCheck}
           />
         </div>
         <pre style={{ paddingTop: "2rem", paddingLeft: "2rem" }}>

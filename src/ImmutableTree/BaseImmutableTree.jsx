@@ -27,21 +27,22 @@ export default class BaseImmutableTree extends React.Component {
             checkboxDisplay={
               nodeData.get("checkboxDisplay") || props.options.checkboxDisplay
             }
+            options={props.options}
             checkboxDisabled={nodeData.get("checkboxDisabled")}
             checked={nodeData.get("checked") || undefined}
             onCheck={(e, checked) => props.onCheck(e, [index], checked)}
           >
             {nodeData.get("children")
               ? <SubImmutableTree
-                  keyField={props.keyField}
-                  expanded={nodeData.get("expanded") || undefined}
-                  data={nodeData.get("children")}
-                  location={index}
-                  options={props.options}
-                  onCheck={props.onCheck}
-                  onClick={props.onClick}
-                  onExpand={props.onExpand}
-                />
+                keyField={props.keyField}
+                expanded={nodeData.get("expanded") || undefined}
+                data={nodeData.get("children")}
+                location={index}
+                options={props.options}
+                onCheck={props.onCheck}
+                onClick={props.onClick}
+                onExpand={props.onExpand}
+              />
               : null}
           </TreeNode>
         )}

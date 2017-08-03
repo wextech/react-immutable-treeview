@@ -15,38 +15,57 @@ export default class TreeNode extends React.Component {
       <div
         style={{
           display: "flex",
-          backgroundColor: props.activated
-            ? "rgba(0, 0, 0, 0.2)"
-            : "rgba(0, 0, 0, 0)",
-          height: styles.height
+          height: props.options.height
         }}
-        onClick={e => props.onClick(e, true)}
       >
         {expandButtonDisplay
           ? <ExpandButton
-              duration={styles.animationDuration}
-              expanded={props.expanded}
-              onClick={props.onExpand}
-            />
+            style={{
+              height: props.options.height,
+              width: props.options.expandButtonWidth,
+              minWidth: props.options.expandButtonWidth
+            }}
+            duration={styles.animationDuration}
+            expanded={props.expanded}
+            onClick={props.onExpand}
+          />
           : null}
-        {props.checkboxDisplay
-          ? <Checkbox
-              disabled={props.checkboxDisabled}
-              checked={props.checked}
-              onChange={props.onCheck}
-            />
-          : null}
-        <span
+        <div
           style={{
-            lineHeight: styles.height,
-            fontSize: styles.fontSize + "px",
-            whiteSpace: "nowrap",
-            cursor: "default",
-            padding: "0 8px"
+            marginLeft: expandButtonDisplay ? null : props.expandButtonWidth,
+            display: "flex"
           }}
-        >
-          {props.title}
-        </span>
+        >{props.checkboxDisplay
+          ? <Checkbox
+            style={{
+              width: props.options.checkboxWidth,
+              height: props.options.height,
+              minWidth: props.options.checkboxWidth
+            }}
+            disabled={props.checkboxDisabled}
+            checked={props.checked}
+            onChange={props.onCheck}
+          />
+          : null}
+          <span
+            style={{
+              lineHeight: props.options.height,
+              width: "100%",
+              fontSize: styles.fontSize + "px",
+              backgroundColor: props.activated
+                ? "rgba(0, 0, 0, 0.2)"
+                : "rgba(0, 0, 0, 0)",
+              whiteSpace: "nowrap",
+              cursor: "default",
+              padding: "0 8px",
+              overflow: "hidden",
+              textOverflow: "ellipsis"
+            }}
+            onClick={e => props.onClick(e, true)}
+          >
+            {props.title}
+          </span>
+        </div>
       </div>
     );
   }
@@ -66,13 +85,15 @@ TreeNode.propTypes = {
   checked: PropTypes.string,
   checkboxDisplay: PropTypes.bool,
   expandButtonDisplay: PropTypes.bool,
+  expandButtonWidth: PropTypes.string,
   expanded: PropTypes.bool,
   activated: PropTypes.bool,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func,
   children: PropTypes.any,
-  checkboxDisabled: PropTypes.bool
+  checkboxDisabled: PropTypes.bool,
+  options: PropTypes.object
 };
 
 TreeNode.defaultProps = {
@@ -80,9 +101,11 @@ TreeNode.defaultProps = {
   checked: "unchecked",
   checkboxDisplay: false,
   expandButtonDisplay: true,
+  expandButtonWidth: styles.expandButtonWidth,
   expanded: false,
   activated: false,
-  onClick: () => {},
-  onExpand: () => {},
-  onCheck: () => {}
+  options: {},
+  onClick: () => { },
+  onExpand: () => { },
+  onCheck: () => { }
 };
