@@ -57,7 +57,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/react-immutable-treeview/";
+/******/ 	__webpack_require__.p = "/react-immutable-treevie/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "./example/App.jsx");
@@ -107,7 +107,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var App = function App() {
   return _react2.default.createElement(
     _reactRouterDom.HashRouter,
-    { hashType: "noslash" },
+    null,
     _react2.default.createElement(
       "div",
       { style: { padding: "1rem" } },
@@ -119,7 +119,7 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/", replace: true },
+            { replace: true, to: "/basic" },
             "basic example"
           )
         ),
@@ -128,13 +128,13 @@ var App = function App() {
           null,
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: "/insert_remove", replace: true },
+            { replace: true, to: "/insert_remove" },
             "insert and reomve example"
           )
         )
       ),
       _react2.default.createElement("hr", null),
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _BasicExample2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/basic", component: _BasicExample2.default }),
       _react2.default.createElement(_reactRouterDom.Route, {
         path: "/insert_remove",
         component: _InsertAndReomve2.default
@@ -144,7 +144,6 @@ var App = function App() {
 };
 var app = document.getElementById("app");
 _reactDom2.default.render(_react2.default.createElement(App, null), app, function () {
-  console.log(1);
   document.getElementById("app").className = "";
 });
 
@@ -357,6 +356,7 @@ var InsertAndReomve = function (_React$Component) {
     _this.onClick = _this.onClick.bind(_this);
     _this.onRemove = _this.onRemove.bind(_this);
     _this.onInsert = _this.onInsert.bind(_this);
+    _this.onCheck = _this.onCheck.bind(_this);
     return _this;
   }
 
@@ -385,6 +385,18 @@ var InsertAndReomve = function (_React$Component) {
       });
     }
   }, {
+    key: "onCheck",
+    value: function onCheck(e, nodePath, toggled) {
+      var _state2 = this.state,
+          treeData = _state2.treeData,
+          lastNodePath = _state2.lastNodePath;
+
+      this.setState({
+        lastNodePath: toggled ? nodePath : null,
+        treeData: treeData.setIn(nodePath.concat("checked"), toggled)
+      });
+    }
+  }, {
     key: "onInsert",
     value: function onInsert(e, nodePath) {
       var newItemForm = this.state.newItemForm;
@@ -392,9 +404,9 @@ var InsertAndReomve = function (_React$Component) {
       var title = newItemForm.get("title");
       if (title === '') return;
       var key = this.state.key++;
-      var _state2 = this.state,
-          treeData = _state2.treeData,
-          lastNodePath = _state2.lastNodePath;
+      var _state3 = this.state,
+          treeData = _state3.treeData,
+          lastNodePath = _state3.lastNodePath;
 
       var insertPath = nodePath.concat("children");
       if (treeData.getIn(insertPath)) {
@@ -411,9 +423,9 @@ var InsertAndReomve = function (_React$Component) {
   }, {
     key: "onRemove",
     value: function onRemove(e, nodePath) {
-      var _state3 = this.state,
-          treeData = _state3.treeData,
-          lastNodePath = _state3.lastNodePath;
+      var _state4 = this.state,
+          treeData = _state4.treeData,
+          lastNodePath = _state4.lastNodePath;
 
       if (lastNodePath !== null && lastNodePath.length == 0) return;
       if (lastNodePath === null) return;
@@ -436,9 +448,9 @@ var InsertAndReomve = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var _state4 = this.state,
-          treeData = _state4.treeData,
-          newItemForm = _state4.newItemForm;
+      var _state5 = this.state,
+          treeData = _state5.treeData,
+          newItemForm = _state5.newItemForm;
 
       return _react2.default.createElement(
         "div",
@@ -476,8 +488,15 @@ var InsertAndReomve = function (_React$Component) {
           ),
           _react2.default.createElement(_ImmutableTree2.default, {
             data: treeData,
+            options: {
+              checkboxDisplay: true,
+              height: "32px",
+              checkboxWidth: "32px",
+              expandButtonWidth: "32px"
+            },
             onExpand: this.onExpand,
-            onClick: this.onClick
+            onClick: this.onClick,
+            onCheck: this.onCheck
           })
         ),
         _react2.default.createElement(
@@ -40834,6 +40853,7 @@ var BaseImmutableTree = function (_React$Component) {
                 return props.onClick(e, [index], !nodeData.get("activated"));
               },
               checkboxDisplay: nodeData.get("checkboxDisplay") || props.options.checkboxDisplay,
+              options: props.options,
               checkboxDisabled: nodeData.get("checkboxDisabled"),
               checked: nodeData.get("checked") || undefined,
               onCheck: function onCheck(e, checked) {
@@ -40919,6 +40939,10 @@ var _immutable = __webpack_require__("./node_modules/immutable/dist/immutable.js
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
+var _styles = __webpack_require__("./src/baseComponents/styles.js");
+
+var _styles2 = _interopRequireDefault(_styles);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40973,7 +40997,7 @@ var ImmutableTree = function (_React$Component) {
       return _react2.default.createElement(_BaseImmutableTree2.default, {
         data: data,
         expanded: true,
-        options: options,
+        options: Object.assign({}, _styles2.default, options),
         onClick: this.onClick,
         onExpand: this.onExpand,
         onCheck: this.onCheck,
@@ -41239,6 +41263,12 @@ var _propTypes = __webpack_require__("./node_modules/prop-types/index.js");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _common = __webpack_require__("./src/common.js");
+
+var _styles = __webpack_require__("./src/baseComponents/styles.js");
+
+var _styles2 = _interopRequireDefault(_styles);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41254,6 +41284,9 @@ function uncheckedIcon(props) {
       fill: props.disabled ? props.disabledColor : props.uncheckedColor,
       height: "24",
       viewBox: "0 0 24 24",
+      style: {
+        transition: "all " + _styles2.default.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+      },
       width: "24"
     },
     _react2.default.createElement("path", { d: "M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z" }),
@@ -41301,6 +41334,9 @@ var Checkbox = function (_Component) {
             "svg",
             {
               fill: props.disabled ? props.disabledColor : props.checkedColor,
+              style: {
+                transition: "all " + _styles2.default.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+              },
               height: "24",
               viewBox: "0 0 24 24",
               width: "24",
@@ -41317,6 +41353,9 @@ var Checkbox = function (_Component) {
             "svg",
             {
               fill: props.disabled ? props.disabledColor : props.indeterminateColor,
+              style: {
+                transition: "all " + _styles2.default.animationDuration + "ms" + " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+              },
               height: "24",
               viewBox: "0 0 24 24",
               width: "24"
@@ -41340,6 +41379,8 @@ var Checkbox = function (_Component) {
         default:
           return uncheckedIcon(props);
       }
+    }, _this.state = {
+      isShow: true
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -41351,13 +41392,11 @@ var Checkbox = function (_Component) {
       return _react2.default.createElement(
         "div",
         {
-          style: {
-            width: props.width,
-            height: props.height,
+          style: Object.assign({
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end"
-          }
+          }, props.style)
         },
         _react2.default.createElement("input", {
           type: "checkbox",
@@ -41406,17 +41445,20 @@ Checkbox.propTypes = {
   checkedColor: _propTypes2.default.string,
   uncheckedColor: _propTypes2.default.string,
   indeterminateColor: _propTypes2.default.string,
-  disabledColor: _propTypes2.default.string
+  disabledColor: _propTypes2.default.string,
+  style: _propTypes2.default.object
 };
 
 Checkbox.defaultProps = {
   checked: "unchecked",
-  onClick: function onClick() {},
-  onChange: function onChange() {},
-  onBlur: function onBlur() {},
-  onFocus: function onFocus() {},
-  height: "32px",
-  width: "32px",
+  onClick: _common.nullEventHandler,
+  onChange: _common.nullEventHandler,
+  onBlur: _common.nullEventHandler,
+  onFocus: _common.nullEventHandler,
+  style: {
+    width: "32px",
+    height: "32px"
+  },
   checkedColor: "rgb(0, 188, 212)",
   uncheckedColor: "rgba(0, 0, 0, 0.870588)",
   indeterminateColor: "rgb(0, 188, 212)",
@@ -41474,16 +41516,12 @@ var ExpandButton = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         {
-          style: {
-            minWidth: props.width,
-            minHeight: props.height,
-            width: props.width,
-            height: props.height,
+          style: Object.assign({
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
             cursor: "pointer"
-          },
+          }, props.style),
           onClick: function onClick(e) {
             e.stopPropagation();
             props.onClick(e, !props.expanded);
@@ -41493,6 +41531,7 @@ var ExpandButton = function (_React$Component) {
           _velocityReact.VelocityComponent,
           {
             duration: props.duration,
+
             animation: { rotateZ: props.expanded ? 90 : 0 }
           },
           _react2.default.createElement(
@@ -41515,12 +41554,15 @@ ExpandButton.propTypes = {
   height: _propTypes2.default.string,
   width: _propTypes2.default.string,
   expanded: _propTypes2.default.bool.isRequired,
-  duration: _propTypes2.default.number.isRequired
+  duration: _propTypes2.default.number.isRequired,
+  style: _propTypes2.default.object
 };
 
 ExpandButton.defaultProps = {
-  height: "32px",
-  width: "32px"
+  style: {
+    height: "32px",
+    width: "32px"
+  }
 };
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/xukunlong/Desktop/react-immutable-treeview/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ExpandButton.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -41681,35 +41723,57 @@ var TreeNode = function (_React$Component) {
         {
           style: {
             display: "flex",
-            backgroundColor: props.activated ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0)",
-            height: _styles2.default.height
-          },
-          onClick: function onClick(e) {
-            return props.onClick(e, true);
+            height: props.options.height
           }
         },
         expandButtonDisplay ? _react2.default.createElement(_ExpandButton2.default, {
+          style: {
+            height: props.options.height,
+            width: props.options.expandButtonWidth,
+            minWidth: props.options.expandButtonWidth
+          },
           duration: _styles2.default.animationDuration,
           expanded: props.expanded,
           onClick: props.onExpand
         }) : null,
-        props.checkboxDisplay ? _react2.default.createElement(_Checkbox2.default, {
-          disabled: props.checkboxDisabled,
-          checked: props.checked,
-          onChange: props.onCheck
-        }) : null,
         _react2.default.createElement(
-          "span",
+          "div",
           {
             style: {
-              lineHeight: _styles2.default.height,
-              fontSize: _styles2.default.fontSize + "px",
-              whiteSpace: "nowrap",
-              cursor: "default",
-              padding: "0 8px"
+              marginLeft: expandButtonDisplay ? null : props.expandButtonWidth,
+              display: "flex"
             }
           },
-          props.title
+          props.checkboxDisplay ? _react2.default.createElement(_Checkbox2.default, {
+            style: {
+              width: props.options.checkboxWidth,
+              height: props.options.height,
+              minWidth: props.options.checkboxWidth
+            },
+            disabled: props.checkboxDisabled,
+            checked: props.checked,
+            onChange: props.onCheck
+          }) : null,
+          _react2.default.createElement(
+            "span",
+            {
+              style: {
+                lineHeight: props.options.height,
+                width: "100%",
+                fontSize: _styles2.default.fontSize + "px",
+                backgroundColor: props.activated ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0)",
+                whiteSpace: "nowrap",
+                cursor: "default",
+                padding: "0 8px",
+                overflow: "hidden",
+                textOverflow: "ellipsis"
+              },
+              onClick: function onClick(e) {
+                return props.onClick(e, true);
+              }
+            },
+            props.title
+          )
         )
       );
     }
@@ -41736,13 +41800,15 @@ TreeNode.propTypes = {
   checked: _propTypes2.default.string,
   checkboxDisplay: _propTypes2.default.bool,
   expandButtonDisplay: _propTypes2.default.bool,
+  expandButtonWidth: _propTypes2.default.string,
   expanded: _propTypes2.default.bool,
   activated: _propTypes2.default.bool,
   onClick: _propTypes2.default.func,
   onExpand: _propTypes2.default.func,
   onCheck: _propTypes2.default.func,
   children: _propTypes2.default.any,
-  checkboxDisabled: _propTypes2.default.bool
+  checkboxDisabled: _propTypes2.default.bool,
+  options: _propTypes2.default.object
 };
 
 TreeNode.defaultProps = {
@@ -41750,8 +41816,10 @@ TreeNode.defaultProps = {
   checked: "unchecked",
   checkboxDisplay: false,
   expandButtonDisplay: true,
+  expandButtonWidth: _styles2.default.expandButtonWidth,
   expanded: false,
   activated: false,
+  options: {},
   onClick: function onClick() {},
   onExpand: function onExpand() {},
   onCheck: function onCheck() {}
@@ -41772,13 +41840,31 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  height: "32px",
   animationDuration: 400,
   fontSize: 16,
-  levelPadding: "32px"
+  levelPadding: "32px",
+  height: "32px",
+  expandButtonWidth: "32px",
+  checkboxWidth: "32px"
 };
 
 /* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/xukunlong/Desktop/react-immutable-treeview/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "styles.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ }),
+
+/***/ "./src/common.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/Users/xukunlong/Desktop/react-immutable-treeview/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/Users/xukunlong/Desktop/react-immutable-treeview/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var nullEventHandler = exports.nullEventHandler = function nullEventHandler() {};
+
+/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/Users/xukunlong/Desktop/react-immutable-treeview/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "common.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ })
 
