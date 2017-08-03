@@ -6,12 +6,11 @@
 
 React Tree View Component. Take Advantage of Immutable.js.
 
-## Screenshots
-
-### [Example](https://hapood.github.io/react-immutable-treeview/)
+## [Example](https://hapood.github.io/react-immutable-treeview/)
 
 An online example from the `/example` directory can be found here: [Here](https://hapood.github.io/react-immutable-treeview/)
 
+### Screenshots
 <img src="https://raw.githubusercontent.com/hapood/react-immutable-treeview/e4dbfddfa934242fa41d151dc7f3ea2708d22972/immutableGif.gif" width="800"/>
 
 
