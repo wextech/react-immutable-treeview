@@ -2,15 +2,15 @@
 
 [![Build Status](https://travis-ci.org/hapood/react-immutable-treeview.svg?branch=master)](https://travis-ci.org/hapood/react-immutable-treeview) [![Coverage Status](https://coveralls.io/repos/hapood/react-immutable-treeview/badge.svg?branch=master&service=github)](https://coveralls.io/github/hapood/react-immutable-treeview?branch=master)[![npm version](https://img.shields.io/npm/v/react-immutable-treeview.svg?style=flat)](https://www.npmjs.com/package/react-immutable-treeview) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
-### Screenshots
+## Screenshots
 
 <img src="https://raw.githubusercontent.com/hapood/react-immutable-treeview/e4dbfddfa934242fa41d151dc7f3ea2708d22972/immutableGif.gif" width="800"/>
 
-### [Example](https://hapood.github.io/react-immutable-treeview/)
+## [Example](https://hapood.github.io/react-immutable-treeview/)
 
 React Tree View Component. Take Advantage of Immutable.js.
 
-### Install
+## Install
 
 ```
 npm install react-immutable-treeview --save
@@ -19,7 +19,7 @@ npm install react-immutable-treeview --save
 An online example from the `/example` directory can be found here: [Here](https://hapood.github.io/react-immutable-treeview/)
 
 
-### Quick Start
+## Quick Start
 
 ```javascript
 
@@ -97,13 +97,13 @@ const content = document.getElementById('app');
 ReactDOM.render(<TreeExample/>, app);
 ```
 
-### Prop Values
+## Prop Values
 
-#### data
+### data
 `PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]).isRequired`
 
 Immutable Data that drives the tree view. State-driven effects can be built by manipulating the attributes in this object. An example can be found in `example/data.js`
-#### options
+### options
 `PropTypes.object`
 
 The options contains four options
@@ -112,17 +112,17 @@ The options contains four options
 * checkboxWidth: Set the width of checkboxWidth.
 * checkboxDisplay:Type of boolean, show checkbox or not.
 
-#### onExpand
+### onExpand
 `PropTypes.func`
 
 Callback function when expand button of a node is clicked. Passes 3 attributes: dom event object, node path and it's expand boolean state.
 
-#### onClick
+### onClick
 `PropTypes.func`
 
 Callback function when label of a node is clicked. Passes 2 attributes: dom event object, node path.
 
-### Data Attributes
+## Data Attributes
 
 ```javascript
 {
@@ -133,17 +133,17 @@ Callback function when label of a node is clicked. Passes 2 attributes: dom even
     activated: '[optional] boolean',
 },
 ```
-#### id
+### id
 The component key. If not defined, an auto-generated index is used.
 
-#### title
+### title
 The title prop passed into the TreeNode component.
 
-#### children
+### children
 The children attached to the node. This value populates the subtree at the specific node. Each child is built from the same basic data structure.
 
-#### expanded
+### expanded
 Visibility of a node's children. False by default.
 
-#### activated
+### activated
 If true, the node will be highlighted.
