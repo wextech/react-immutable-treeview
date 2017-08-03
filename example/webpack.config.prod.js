@@ -11,7 +11,7 @@ module.exports = {
     path: path.join(__dirname, "../dist"),
     filename: "[name].[hash].js",
     chunkFilename: "[name].[id].[hash].js",
-    publicPath: "/react-immutable-treevie/"
+    publicPath: "/react-immutable-treeview/"
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".js", ".jsx"]
