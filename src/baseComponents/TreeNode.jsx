@@ -60,6 +60,7 @@ export default class TreeNode extends React.Component {
               cursor: "default",
               padding: "0 8px",
               overflow: "hidden",
+              userSelect: "none",
               textOverflow: "ellipsis"
             }}
             onClick={e => props.onClick(e, true)}
