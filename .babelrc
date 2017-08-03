@@ -1,0 +1,3 @@
+{
+  "presets": ["./tools/custom-latest-preset", "stage-1", "react"]
+}
