@@ -105,14 +105,19 @@ ReactDOM.render(<TreeExample/>, app);
 `PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]).isRequired`
 
 Immutable Data that drives the tree view. State-driven effects can be built by manipulating the attributes in this object. An example can be found in `example/data.js`
-### options
-`PropTypes.object`
 
-The options contains four options
-* height:set the lineHeight, expandButton and checkbox height.
-* expandButtonWidth: Set the width of expandButton.
-* checkboxWidth: Set the width of checkboxWidth.
-* checkboxDisplay:Type of boolean, show checkbox or not.
+### options
+
+```javascript
+{
+    nodeHeight: '[optional] string', 
+    expandButtonWidth: '[optional] string',
+    checkboxWidth: '[optional] Immutable.List',
+    checkboxDisplay: '[optional] boolean',
+}
+```
+
+Display options of treeview, you can set it here as global or specify every single node in data attributes.
 
 ### onExpand
 `PropTypes.func`
@@ -133,7 +138,9 @@ Callback function when label of a node is clicked. Passes 2 attributes: dom even
     children: '[optional] Immutable.List',
     expanded: '[optional] boolean',
     activated: '[optional] boolean',
-},
+    checkboxDisplay: '[optional] boolean',
+    checked: '[optional] string',
+}
 ```
 ### id
 The component key. If not defined, an auto-generated index is used.
@@ -149,3 +156,9 @@ Visibility of a node's children. False by default.
 
 ### activated
 If true, the node will be highlighted.
+
+### checkboxDisplay
+override global checkboxDisplay options.
+
+### checked
+setting checkbox by [checked], [unchecked] or [indeterminate].
