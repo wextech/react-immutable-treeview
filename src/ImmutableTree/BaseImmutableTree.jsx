@@ -8,7 +8,11 @@ export default class BaseImmutableTree extends React.Component {
   render() {
     const props = this.props;
     return (
-      <TreeContainer paddingLeft={props.paddingLeft} expanded={props.expanded}>
+      <TreeContainer
+        levelPadding={props.levelPadding}
+        expanded={props.expanded}
+        options={props.options}
+      >
         {props.data.map((nodeData, index) =>
           <TreeNode
             key={nodeData.get("id") || index}
@@ -34,15 +38,15 @@ export default class BaseImmutableTree extends React.Component {
           >
             {nodeData.get("children")
               ? <SubImmutableTree
-                keyField={props.keyField}
-                expanded={nodeData.get("expanded") || undefined}
-                data={nodeData.get("children")}
-                location={index}
-                options={props.options}
-                onCheck={props.onCheck}
-                onClick={props.onClick}
-                onExpand={props.onExpand}
-              />
+                  keyField={props.keyField}
+                  expanded={nodeData.get("expanded") || undefined}
+                  data={nodeData.get("children")}
+                  location={index}
+                  options={props.options}
+                  onCheck={props.onCheck}
+                  onClick={props.onClick}
+                  onExpand={props.onExpand}
+                />
               : null}
           </TreeNode>
         )}
@@ -52,13 +56,11 @@ export default class BaseImmutableTree extends React.Component {
 }
 
 BaseImmutableTree.propTypes = {
-  options: PropTypes.any,
+  options: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func,
-  paddingLeft: PropTypes.string,
+  levelPadding: PropTypes.string,
   expanded: PropTypes.bool
 };
-
-BaseImmutableTree.defaultProps = {};

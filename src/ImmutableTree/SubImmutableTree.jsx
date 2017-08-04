@@ -24,10 +24,10 @@ export default class SubImmutableTree extends React.Component {
   }
 
   render() {
-    let { options, data, location, paddingLeft, expanded } = this.props;
+    let { options, data, location, levelPadding, expanded } = this.props;
     return (
       <BaseImmutableTree
-        paddingLeft={paddingLeft}
+        levelPadding={levelPadding}
         data={data}
         expanded={expanded}
         options={options}
@@ -43,7 +43,7 @@ SubImmutableTree.propTypes = {
   options: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
   location: PropTypes.number.isRequired,
-  paddingLeft: PropTypes.string,
+  levelPadding: PropTypes.string,
   expanded: PropTypes.bool
 };
 

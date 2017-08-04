@@ -5,11 +5,29 @@ import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import BaseImmutableTree from "./BaseImmutableTree";
 import Immutable from "immutable";
-import styles from "../baseComponents/styles.js"
+import defaultOptions from "../defaultOptions.js";
+
+const heightMatchExp = /(\d*)(\.\d*)?(\w*)/;
+
+function transformOptions(options) {
+  let [_, numberPart1, numberPart2, heightUnit] = options.nodeHeight.match(
+    heightMatchExp
+  );
+  let wholeNumber =
+    (numberPart1 == null ? "" : numberPart1) +
+    (numberPart2 == null ? "" : numberPart2);
+  let heightNumber = Number(wholeNumber);
+  if (isNaN(heightNumber) || heightUnit == null)
+    throw new Error(`nodeHeight ${options.nodeHeight} is not valid.`);
+  return Object.assign({}, options, {
+    nodeHeight: heightNumber,
+    nodeHeightUnit: heightUnit
+  });
+}
 
 export default class ImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
-    return function (e, subNodePath, flag) {
+    return function(e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
       if (Immutable.Iterable.isIndexed(this.props.data)) {
         this.props[onEventType](
@@ -38,7 +56,20 @@ export default class ImmutableTree extends React.Component {
     this.onClick = this.eventFunctionFactory("onClick").bind(this);
     this.onExpand = this.eventFunctionFactory("onExpand").bind(this);
     this.onCheck = this.eventFunctionFactory("onCheck").bind(this);
+    this.state = {};
+    this.state.options = transformOptions(
+      Object.assign({}, defaultOptions, props.options)
+    );
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.options !== nextProps.options) {
+      this.state.options = transformOptions(
+        Object.assign({}, defaultOptions, nextProps.options)
+      );
+    }
+  }
+
   render() {
     const props = this.props;
     let { data, options, keyField } = props;
@@ -49,11 +80,11 @@ export default class ImmutableTree extends React.Component {
       <BaseImmutableTree
         data={data}
         expanded={true}
-        options={Object.assign({}, styles, options)}
+        options={this.state.options}
         onClick={this.onClick}
         onExpand={this.onExpand}
         onCheck={this.onCheck}
-        paddingLeft="0"
+        levelPadding="0"
       />
     );
   }

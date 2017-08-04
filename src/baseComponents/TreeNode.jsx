@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ExpandButton from "./ExpandButton";
-import styles from "./styles";
 import Checkbox from "./Checkbox";
 
 export default class TreeNode extends React.Component {
@@ -21,19 +20,22 @@ export default class TreeNode extends React.Component {
         {expandButtonDisplay
           ? <ExpandButton
               style={{
-                height: props.options.nodeHeight,
+                height: props.options.nodeHeight + props.options.nodeHeightUnit,
                 width: props.options.expandButtonWidth,
                 minWidth: props.options.expandButtonWidth
               }}
-              duration={props.options.animationDuration}
+              animationDuration={props.options.animationDuration}
               expanded={props.expanded}
               onClick={props.onExpand}
             />
           : null}
         <div
           style={{
-            marginLeft: expandButtonDisplay ? null : props.expandButtonWidth,
-            display: "flex"
+            marginLeft: expandButtonDisplay
+              ? null
+              : props.options.expandButtonWidth,
+            display: "flex",
+            width: "100%"
           }}
         >
           {props.checkboxDisplay
@@ -43,6 +45,7 @@ export default class TreeNode extends React.Component {
                   height: props.options.nodeHeight,
                   minWidth: props.options.checkboxWidth
                 }}
+                animationDuration={props.options.animationDuration}
                 disabled={props.checkboxDisabled}
                 checked={props.checked}
                 onChange={props.onCheck}
@@ -50,7 +53,8 @@ export default class TreeNode extends React.Component {
             : null}
           <span
             style={{
-              lineHeight: props.options.nodeHeight,
+              lineHeight:
+                props.options.nodeHeight + props.options.nodeHeightUnit,
               width: "100%",
               fontSize: props.options.fontSize + "px",
               backgroundColor: props.activated
@@ -87,7 +91,6 @@ TreeNode.propTypes = {
   checked: PropTypes.string,
   checkboxDisplay: PropTypes.bool,
   expandButtonDisplay: PropTypes.bool,
-  expandButtonWidth: PropTypes.string,
   expanded: PropTypes.bool,
   activated: PropTypes.bool,
   onClick: PropTypes.func,
@@ -95,7 +98,7 @@ TreeNode.propTypes = {
   onCheck: PropTypes.func,
   children: PropTypes.any,
   checkboxDisabled: PropTypes.bool,
-  options: PropTypes.object
+  options: PropTypes.object.isRequired
 };
 
 TreeNode.defaultProps = {
@@ -103,7 +106,6 @@ TreeNode.defaultProps = {
   checked: "unchecked",
   checkboxDisplay: false,
   expandButtonDisplay: true,
-  expandButtonWidth: styles.expandButtonWidth,
   expanded: false,
   activated: false,
   options: {},

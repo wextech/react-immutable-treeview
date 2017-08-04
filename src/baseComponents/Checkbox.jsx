@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { VelocityComponent } from "velocity-react";
 import PropTypes from "prop-types";
 import { nullEventHandler } from "../common.js";
-import styles from "./styles.js";
+
 function uncheckedIcon(props) {
   return (
     <svg
@@ -159,7 +159,7 @@ Checkbox.propTypes = {
   indeterminateColor: PropTypes.string,
   disabledColor: PropTypes.string,
   style: PropTypes.object,
-  animationDuration: PropTypes.number
+  animationDuration: PropTypes.number.isRequired
 };
 
 Checkbox.defaultProps = {
@@ -172,7 +172,6 @@ Checkbox.defaultProps = {
     width: "32px",
     height: "32px"
   },
-  animationDuration: styles.animationDuration,
   checkedColor: "rgb(0, 188, 212)",
   uncheckedColor: "rgba(0, 0, 0, 0.870588)",
   indeterminateColor: "rgb(0, 188, 212)",

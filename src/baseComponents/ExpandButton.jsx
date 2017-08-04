@@ -7,20 +7,24 @@ export default class ExpandButton extends React.Component {
     const props = this.props;
     return (
       <div
-        style={Object.assign({
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "flex-end",
-          cursor: "pointer"
-        }, props.style)}
+        style={Object.assign(
+          {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            cursor: "pointer",
+            height: "32px",
+            width: "32px"
+          },
+          props.style
+        )}
         onClick={e => {
           e.stopPropagation();
           props.onClick(e, !props.expanded);
         }}
       >
         <VelocityComponent
-          duration={props.duration}
-
+          animationDuration={props.animationDuration}
           animation={{ rotateZ: props.expanded ? 90 : 0 }}
         >
           <svg height="24px" width="24px" viewBox="0, 0, 24, 24">
@@ -36,13 +40,6 @@ ExpandButton.propTypes = {
   height: PropTypes.string,
   width: PropTypes.string,
   expanded: PropTypes.bool.isRequired,
-  duration: PropTypes.number.isRequired,
+  animationDuration: PropTypes.number.isRequired,
   style: PropTypes.object
-};
-
-ExpandButton.defaultProps = {
-  style: {
-    height: "32px",
-    width: "32px",
-  }
 };
