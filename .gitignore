@@ -2,6 +2,7 @@ node_modules/
 src/
 example/
 lib/
+coverage/
 .babelrc
 devServer.js
 package.json
