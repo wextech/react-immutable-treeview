@@ -56,13 +56,12 @@ class InsertAndReomve extends React.Component {
       treeData: treeData.setIn(nodePath.concat("activated"), toggled)
     });
   }
+
   onCheck(e, nodePath, toggled) {
     let { treeData, lastNodePath } = this.state
     this.setState({
-      lastNodePath: toggled ? nodePath : null,
       treeData: treeData.setIn(nodePath.concat("checked"), toggled)
     });
-
   }
 
   onInsert(e, nodePath) {

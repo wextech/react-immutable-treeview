@@ -4,21 +4,21 @@
 [![npm version](https://img.shields.io/npm/v/react-immutable-treeview.svg?style=flat)](https://www.npmjs.com/package/react-immutable-treeview) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 
-## Screenshots
-
-<img src="https://raw.githubusercontent.com/hapood/react-immutable-treeview/e4dbfddfa934242fa41d151dc7f3ea2708d22972/immutableGif.gif" width="800"/>
+React Tree View Component. Take Advantage of Immutable.js.
 
 ## [Example](https://hapood.github.io/react-immutable-treeview/)
 
-React Tree View Component. Take Advantage of Immutable.js.
+An online example from the `/example` directory can be found here: [Here](https://hapood.github.io/react-immutable-treeview/)
+
+### Screenshots
+<img src="https://raw.githubusercontent.com/hapood/react-immutable-treeview/e4dbfddfa934242fa41d151dc7f3ea2708d22972/immutableGif.gif" width="800"/>
+
 
 ## Install
 
 ```
 npm install react-immutable-treeview --save
 ```
-
-An online example from the `/example` directory can be found here: [Here](https://hapood.github.io/react-immutable-treeview/)
 
 
 ## Quick Start
@@ -46,7 +46,7 @@ const data = {
         {
           title: "normal_child_with_data",
           data: {
-            anyKey: "nayValue"
+            anyKey: "anyValue"
           }
         },
         {
@@ -105,14 +105,19 @@ ReactDOM.render(<TreeExample/>, app);
 `PropTypes.oneOfType([ImmutablePropTypes.map, ImmutablePropTypes.list]).isRequired`
 
 Immutable Data that drives the tree view. State-driven effects can be built by manipulating the attributes in this object. An example can be found in `example/data.js`
-### options
-`PropTypes.object`
 
-The options contains four options
-* height:set the lineHeight, expandButton and checkbox height.
-* expandButtonWidth: Set the width of expandButton.
-* checkboxWidth: Set the width of checkboxWidth.
-* checkboxDisplay:Type of boolean, show checkbox or not.
+### options
+
+```javascript
+{
+    nodeHeight: '[optional] string', 
+    expandButtonWidth: '[optional] string',
+    checkboxWidth: '[optional] Immutable.List',
+    checkboxDisplay: '[optional] boolean',
+}
+```
+
+Display options of treeview, you can set it here as global or specify every single node in data attributes.
 
 ### onExpand
 `PropTypes.func`
@@ -133,7 +138,9 @@ Callback function when label of a node is clicked. Passes 2 attributes: dom even
     children: '[optional] Immutable.List',
     expanded: '[optional] boolean',
     activated: '[optional] boolean',
-},
+    checkboxDisplay: '[optional] boolean',
+    checked: '[optional] string',
+}
 ```
 ### id
 The component key. If not defined, an auto-generated index is used.
@@ -149,3 +156,9 @@ Visibility of a node's children. False by default.
 
 ### activated
 If true, the node will be highlighted.
+
+### checkboxDisplay
+override global checkboxDisplay options.
+
+### checked
+setting checkbox by [checked], [unchecked] or [indeterminate].
