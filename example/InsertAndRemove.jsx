@@ -20,7 +20,7 @@ function addKeyToTreeNode(data, state) {
   }
 }
 
-class InsertAndReomve extends React.Component {
+class InsertAndRemove extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -141,4 +141,4 @@ class InsertAndReomve extends React.Component {
     );
   }
 }
-export default InsertAndReomve;
+export default InsertAndRemove;

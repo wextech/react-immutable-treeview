@@ -16,7 +16,7 @@ const App = () =>
         </li>
         <li>
           <Link replace to="/insert_remove">
-            insert and reomve example
+            insert and remove example
           </Link>
         </li>
       </ul>
