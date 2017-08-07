@@ -24,7 +24,6 @@ export default class TreeNode extends React.Component {
                 width: props.options.expandButtonWidth,
                 minWidth: props.options.expandButtonWidth
               }}
-              animationDuration={props.options.animationDuration}
               expanded={props.expanded}
               onClick={props.onExpand}
             />
@@ -45,7 +44,6 @@ export default class TreeNode extends React.Component {
                   height: props.options.nodeHeight,
                   minWidth: props.options.checkboxWidth
                 }}
-                animationDuration={props.options.animationDuration}
                 disabled={props.checkboxDisabled}
                 checked={props.checked}
                 onChange={props.onCheck}
@@ -78,7 +76,14 @@ export default class TreeNode extends React.Component {
 
   render() {
     return (
-      <li style={{ listStyle: "none" }}>
+      <li
+        style={Object.assign(
+          {
+            listStyle: "none"
+          },
+          this.props.style
+        )}
+      >
         {this.renderHeader()}
         {this.props.children}
       </li>
@@ -98,11 +103,13 @@ TreeNode.propTypes = {
   onCheck: PropTypes.func,
   children: PropTypes.any,
   checkboxDisabled: PropTypes.bool,
-  options: PropTypes.object.isRequired
+  options: PropTypes.object.isRequired,
+  style: PropTypes.object
 };
 
 TreeNode.defaultProps = {
   title: "",
+  style: {},
   checked: "unchecked",
   checkboxDisplay: false,
   expandButtonDisplay: true,

@@ -1,5 +1,5 @@
 export default {
-  animationDuration: 400,
+  springOption: null,
   fontSize: 16,
   levelPadding: "32px",
   nodeHeight: "32px",
