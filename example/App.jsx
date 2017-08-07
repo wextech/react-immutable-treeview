@@ -5,7 +5,7 @@ import data from "./data";
 import Immutable from "immutable";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import BasicExample from "./BasicExample";
-import InsertAndReomve from "./InsertAndReomve";
+import InsertAndRemove from "./InsertAndRemove";
 
 const App = () =>
   <Router>
@@ -16,7 +16,7 @@ const App = () =>
         </li>
         <li>
           <Link replace to="/insert_remove">
-            insert and reomve example
+            insert and remove example
           </Link>
         </li>
       </ul>
@@ -24,7 +24,7 @@ const App = () =>
       <Route exact path="/basic" component={BasicExample} />
       <Route
         path="/insert_remove"
-        component={InsertAndReomve}
+        component={InsertAndRemove}
       />
     </div>
   </Router>;

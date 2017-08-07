@@ -46,7 +46,7 @@ const data = {
         {
           title: "normal_child_with_data",
           data: {
-            anyKey: "nayValue"
+            anyKey: "anyValue"
           }
         },
         {
