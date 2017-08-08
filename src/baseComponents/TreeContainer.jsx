@@ -28,19 +28,12 @@ export default class TreeContainer extends React.Component {
           );
           if (expandStyle) {
             return props.expanded
-              ? expandStyle.style.height === props.contanierHeight
-                ? [
-                    {
-                      key: "expanded",
-                      style: {}
-                    }
-                  ]
-                : [
-                    {
-                      key: "expanded",
-                      style: { height: spring(props.contanierHeight) }
-                    }
-                  ]
+              ? [
+                  {
+                    key: "expanded",
+                    style: { height: spring(props.contanierHeight) }
+                  }
+                ]
               : expandStyle.style.height === 0
                 ? [
                     {
@@ -76,10 +69,9 @@ export default class TreeContainer extends React.Component {
             <ul
               className={interpolatedStyles[0].key}
               style={{
-                height: interpolatedStyles[0].style.height
-                  ? interpolatedStyles[0].style.height +
-                    props.options.nodeHeightUnit
-                  : null,
+                height:
+                  interpolatedStyles[0].style.height +
+                  props.options.nodeHeightUnit,
                 listStyle: "none",
                 margin: 0,
                 paddingLeft: props.levelPadding,

@@ -51,34 +51,46 @@ export default class ImmutableTree extends React.Component {
     };
   }
 
-  calcTreeDisplayNodeCnt(treeData, heightCacheDict, stopFlag) {
+  calcTreeDisplayNodeCnt(treeData, heightCacheDict, finalLatch) {
     if (treeData == null || treeData.count() === 0) return 0;
     let cachedCnt = heightCacheDict[treeData];
-    if (cachedCnt == null) {
+    if (cachedCnt == null || finalLatch !== 0) {
       cachedCnt = treeData.reduce((displayNodeCnt, curNodeData) => {
-        console.log(curNodeData.toJS(), curNodeData.get("expanded"));
         let childCnt = 0;
-        childCnt = this.calcTreeDisplayNodeCnt(
-          curNodeData.get("children"),
-          heightCacheDict
-        );
-        heightCacheDict[curNodeData.get("children")] = childCnt;
         if (curNodeData.get("expanded")) {
-          heightCacheDict[curNodeData] = childCnt + 1;
+          childCnt = this.calcTreeDisplayNodeCnt(
+            curNodeData.get("children"),
+            heightCacheDict,
+            finalLatch
+          );
+          if (finalLatch !== 0) {
+            heightCacheDict[curNodeData] = childCnt + 1;
+          }
           return displayNodeCnt + 1 + childCnt;
         } else {
-          heightCacheDict[curNodeData] = 1;
+          if (finalLatch === 0) {
+            return displayNodeCnt + 1;
+          }
+          childCnt = this.calcTreeDisplayNodeCnt(
+            curNodeData.get("children"),
+            heightCacheDict,
+            finalLatch == null ? 1 : finalLatch - 1
+          );
+          if (finalLatch !== 0) {
+            heightCacheDict[curNodeData] = 1;
+          }
           return displayNodeCnt + 1;
         }
       }, 0);
-      heightCacheDict[treeData] = cachedCnt;
+      if (finalLatch !== 0) {
+        heightCacheDict[treeData] = cachedCnt;
+      }
     }
     return cachedCnt;
   }
 
   buildHeightCacheDict(treeData, heightCacheDict) {
     let cachedCnt = heightCacheDict[treeData];
-    console.log(cachedCnt);
     if (cachedCnt == null)
       cachedCnt = this.calcTreeDisplayNodeCnt(treeData, heightCacheDict);
     heightCacheDict[treeData] = cachedCnt;
@@ -114,7 +126,6 @@ export default class ImmutableTree extends React.Component {
       } else {
         this.state.data = nextProps.data;
       }
-      console.log(this.state.heightCacheDict[this.state.data]);
       this.buildHeightCacheDict(this.state.data, this.state.heightCacheDict);
     }
   }

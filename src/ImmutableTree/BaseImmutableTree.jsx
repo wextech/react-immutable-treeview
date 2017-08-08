@@ -52,89 +52,84 @@ export default class BaseImmutableTree extends React.Component {
         willEnter={this.willEnter}
         willLeave={this.willLeave}
       >
-        {interpolatedStyles => {
-          console.log(interpolatedStyles);
-          return (
-            <TreeContainer
-              levelPadding={props.levelPadding}
-              contanierHeight={
-                props.heightCacheDict[props.data] * props.options.nodeHeight
-              }
-              expanded={props.expanded}
-              options={props.options}
-            >
-              {() =>
-                interpolatedStyles.map((interpolatedStyle, index) => {
-                  let { nodeData, nodeIndex } = interpolatedStyle.data;
-                  return (
-                    <TreeNode
-                      key={nodeData.get("id") || index}
-                      style={{
-                        height:
-                          interpolatedStyle.style.height +
-                          props.options.nodeHeightUnit,
-                        opacity: interpolatedStyle.style.opacity
-                      }}
-                      data={nodeData}
-                      title={nodeData.get("title")}
-                      expandButtonDisplay={
-                        nodeData.get("expandButtonDisplay") ||
-                        props.options.expandButtonDisplay ||
-                        nodeData.get("children") != null
-                      }
-                      expanded={nodeData.get("expanded") || undefined}
-                      onExpand={e =>
-                        interpolatedStyle.style.isDeleted
-                          ? null
-                          : props.onExpand(
-                              e,
-                              [nodeIndex],
-                              !nodeData.get("expanded")
-                            )}
-                      activated={nodeData.get("activated") || undefined}
-                      onClick={e =>
-                        interpolatedStyle.style.isDeleted
-                          ? null
-                          : props.onClick(
-                              e,
-                              [nodeIndex],
-                              !nodeData.get("activated")
-                            )}
-                      checkboxDisplay={
-                        nodeData.get("checkboxDisplay") ||
-                        props.options.checkboxDisplay
-                      }
-                      options={props.options}
-                      checkboxDisabled={nodeData.get("checkboxDisabled")}
-                      checked={nodeData.get("checked") || undefined}
-                      onCheck={(e, checked) =>
-                        interpolatedStyle.style.isDeleted
-                          ? null
-                          : props.onCheck(e, [nodeIndex], checked)}
-                    >
-                      {nodeData.get("children")
-                        ? <SubImmutableTree
-                            keyField={props.keyField}
-                            expanded={nodeData.get("expanded") || undefined}
-                            data={nodeData.get("children")}
-                            location={
-                              interpolatedStyle.style.isDeleted
-                                ? null
-                                : nodeIndex
-                            }
-                            heightCacheDict={props.heightCacheDict}
-                            options={props.options}
-                            onCheck={props.onCheck}
-                            onClick={props.onClick}
-                            onExpand={props.onExpand}
-                          />
-                        : null}
-                    </TreeNode>
-                  );
-                })}
-            </TreeContainer>
-          );
-        }}
+        {interpolatedStyles =>
+          <TreeContainer
+            levelPadding={props.levelPadding}
+            contanierHeight={
+              props.heightCacheDict[props.data] * props.options.nodeHeight
+            }
+            expanded={props.expanded}
+            options={props.options}
+          >
+            {() =>
+              interpolatedStyles.map((interpolatedStyle, index) => {
+                let { nodeData, nodeIndex } = interpolatedStyle.data;
+                return (
+                  <TreeNode
+                    key={nodeData.get("id") || index}
+                    style={{
+                      height:
+                        interpolatedStyle.style.height +
+                        props.options.nodeHeightUnit,
+                      opacity: interpolatedStyle.style.opacity,
+                      overflow: "hidden"
+                    }}
+                    data={nodeData}
+                    title={nodeData.get("title")}
+                    expandButtonDisplay={
+                      nodeData.get("expandButtonDisplay") ||
+                      props.options.expandButtonDisplay ||
+                      nodeData.get("children") != null
+                    }
+                    expanded={nodeData.get("expanded") || undefined}
+                    onExpand={e =>
+                      interpolatedStyle.style.isDeleted
+                        ? null
+                        : props.onExpand(
+                            e,
+                            [nodeIndex],
+                            !nodeData.get("expanded")
+                          )}
+                    activated={nodeData.get("activated") || undefined}
+                    onClick={e =>
+                      interpolatedStyle.style.isDeleted
+                        ? null
+                        : props.onClick(
+                            e,
+                            [nodeIndex],
+                            !nodeData.get("activated")
+                          )}
+                    checkboxDisplay={
+                      nodeData.get("checkboxDisplay") ||
+                      props.options.checkboxDisplay
+                    }
+                    options={props.options}
+                    checkboxDisabled={nodeData.get("checkboxDisabled")}
+                    checked={nodeData.get("checked") || undefined}
+                    onCheck={(e, checked) =>
+                      interpolatedStyle.style.isDeleted
+                        ? null
+                        : props.onCheck(e, [nodeIndex], checked)}
+                  >
+                    {nodeData.get("children")
+                      ? <SubImmutableTree
+                          keyField={props.keyField}
+                          expanded={nodeData.get("expanded") || undefined}
+                          data={nodeData.get("children")}
+                          location={
+                            interpolatedStyle.style.isDeleted ? null : nodeIndex
+                          }
+                          heightCacheDict={props.heightCacheDict}
+                          options={props.options}
+                          onCheck={props.onCheck}
+                          onClick={props.onClick}
+                          onExpand={props.onExpand}
+                        />
+                      : null}
+                  </TreeNode>
+                );
+              })}
+          </TreeContainer>}
       </TransitionMotion>
     );
   }
