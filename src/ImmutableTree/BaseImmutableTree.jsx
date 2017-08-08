@@ -41,7 +41,7 @@ export default class BaseImmutableTree extends React.Component {
       <TransitionMotion
         styles={props.data
           .map((nodeData, index) => ({
-            key: nodeData.get("id") || index,
+            key: nodeData.get("id") || String(index),
             style: {
               height: spring(props.options.nodeHeight),
               opacity: 1,
@@ -73,11 +73,11 @@ export default class BaseImmutableTree extends React.Component {
               expanded={props.expanded}
               options={props.options}
             >
-              {interpolatedStyles.map(interpolatedStyle => {
+              {interpolatedStyles.map((interpolatedStyle, index) => {
                 let { nodeData, nodeIndex } = interpolatedStyle.data;
                 return (
                   <TreeNode
-                    key={nodeData.get("id")}
+                    key={nodeData.get("id") || index}
                     style={{
                       height:
                         interpolatedStyle.style.height ===
