@@ -86,7 +86,9 @@ export default class TreeContainer extends React.Component {
                 overflow: "hidden"
               }}
             >
-              {interpolatedStyles[0].key === "expanded" ? props.children : null}
+              {interpolatedStyles[0].key === "expanded"
+                ? props.children()
+                : null}
             </ul>
           );
         }}

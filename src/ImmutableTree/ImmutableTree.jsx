@@ -51,15 +51,55 @@ export default class ImmutableTree extends React.Component {
     };
   }
 
+  calcTreeDisplayNodeCnt(treeData, heightCacheDict, stopFlag) {
+    if (treeData == null || treeData.count() === 0) return 0;
+    let cachedCnt = heightCacheDict[treeData];
+    if (cachedCnt == null) {
+      cachedCnt = treeData.reduce((displayNodeCnt, curNodeData) => {
+        console.log(curNodeData.toJS(), curNodeData.get("expanded"));
+        let childCnt = 0;
+        childCnt = this.calcTreeDisplayNodeCnt(
+          curNodeData.get("children"),
+          heightCacheDict
+        );
+        heightCacheDict[curNodeData.get("children")] = childCnt;
+        if (curNodeData.get("expanded")) {
+          heightCacheDict[curNodeData] = childCnt + 1;
+          return displayNodeCnt + 1 + childCnt;
+        } else {
+          heightCacheDict[curNodeData] = 1;
+          return displayNodeCnt + 1;
+        }
+      }, 0);
+      heightCacheDict[treeData] = cachedCnt;
+    }
+    return cachedCnt;
+  }
+
+  buildHeightCacheDict(treeData, heightCacheDict) {
+    let cachedCnt = heightCacheDict[treeData];
+    console.log(cachedCnt);
+    if (cachedCnt == null)
+      cachedCnt = this.calcTreeDisplayNodeCnt(treeData, heightCacheDict);
+    heightCacheDict[treeData] = cachedCnt;
+    return heightCacheDict;
+  }
+
   constructor(props) {
     super(props);
     this.onClick = this.eventFunctionFactory("onClick").bind(this);
     this.onExpand = this.eventFunctionFactory("onExpand").bind(this);
     this.onCheck = this.eventFunctionFactory("onCheck").bind(this);
-    this.state = {};
+    this.state = { heightCacheDict: {} };
+    if (!Immutable.Iterable.isIndexed(props.data)) {
+      this.state.data = Immutable.List.of(props.data);
+    } else {
+      this.state.data = props.data;
+    }
     this.state.options = transformOptions(
       Object.assign({}, defaultOptions, props.options)
     );
+    this.buildHeightCacheDict(this.state.data, this.state.heightCacheDict);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,23 +108,30 @@ export default class ImmutableTree extends React.Component {
         Object.assign({}, defaultOptions, nextProps.options)
       );
     }
+    if (this.props.data !== nextProps.data) {
+      if (!Immutable.Iterable.isIndexed(nextProps.data)) {
+        this.state.data = Immutable.List.of(nextProps.data);
+      } else {
+        this.state.data = nextProps.data;
+      }
+      console.log(this.state.heightCacheDict[this.state.data]);
+      this.buildHeightCacheDict(this.state.data, this.state.heightCacheDict);
+    }
   }
 
   render() {
     const props = this.props;
-    let { data, options, keyField } = props;
-    if (!Immutable.Iterable.isIndexed(data)) {
-      data = Immutable.List.of(data);
-    }
+    let { options, keyField } = props;
     return (
       <BaseImmutableTree
-        data={data}
+        data={this.state.data}
         expanded={true}
         options={this.state.options}
         onClick={this.onClick}
         onExpand={this.onExpand}
         onCheck={this.onCheck}
         levelPadding="0"
+        heightCacheDict={this.state.heightCacheDict}
       />
     );
   }
