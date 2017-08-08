@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import { VelocityComponent } from "velocity-react";
+import { TransitionMotion, spring } from "react-motion";
 import PropTypes from "prop-types";
 import { nullEventHandler } from "../common.js";
 
-function uncheckedIcon(props) {
+function uncheckedIcon(opacity, props) {
   return (
     <svg
       fill={props.disabled ? props.disabledColor : props.uncheckedColor}
       height="24"
       viewBox="0 0 24 24"
       style={{
-        transition:
-          "all " +
-          props.animationDuration +
-          "ms" +
-          " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+        opacity
       }}
       width="24"
     >
@@ -24,16 +20,12 @@ function uncheckedIcon(props) {
   );
 }
 
-function checkedIcon(props) {
+function checkedIcon(opacity, props) {
   return (
     <svg
       fill={props.disabled ? props.disabledColor : props.checkedColor}
       style={{
-        transition:
-          "all " +
-          props.animationDuration +
-          "ms" +
-          " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+        opacity
       }}
       height="24"
       viewBox="0 0 24 24"
@@ -46,16 +38,12 @@ function checkedIcon(props) {
   );
 }
 
-function indeterminateIcon(props) {
+function indeterminateIcon(opacity, props) {
   return (
     <svg
       fill={props.disabled ? props.disabledColor : props.indeterminateColor}
       style={{
-        transition:
-          "all " +
-          props.animationDuration +
-          "ms" +
-          " cubic-bezier(0.23, 1, 0.32, 1) 0ms"
+        opacity
       }}
       height="24"
       viewBox="0 0 24 24"
@@ -92,19 +80,21 @@ export default class Checkbox extends Component {
     this.props.onClick(e);
   };
 
-  rendIcon = checked => {
-    let { props } = this;
-    switch (checked) {
+  rendIcon(interpolatedStyle, props) {
+    let opacity = interpolatedStyle.style.opacity;
+    switch (interpolatedStyle.key) {
       case "checked":
-        return checkedIcon(props);
+        return checkedIcon(opacity, props);
       case "unchecked":
-        return uncheckedIcon(props);
+        return uncheckedIcon(opacity, props);
       case "indeterminate":
-        return indeterminateIcon(props);
+        return indeterminateIcon(opacity, props);
       default:
-        return uncheckedIcon(props);
+        return uncheckedIcon(opacity, props);
     }
-  };
+  }
+
+  willEnter() {}
 
   render() {
     let { props } = this;
@@ -139,7 +129,44 @@ export default class Checkbox extends Component {
             opacity: "0"
           }}
         />
-        {this.rendIcon(props.checked)}
+        <TransitionMotion
+          defaultStyles={[
+            {
+              key: props.checked,
+              style: { opacity: 1 }
+            }
+          ]}
+          styles={previousInterpolatedStyles => {
+            if (props.checked === previousInterpolatedStyles[0].key) {
+              return [
+                {
+                  key: props.checked,
+                  style: { opacity: spring(1, { precision: 2 }) }
+                }
+              ];
+            } else {
+              return previousInterpolatedStyles[0].style.opacity === 0.2
+                ? [
+                    {
+                      key: props.checked,
+                      style: {
+                        opacity: 0.2
+                      }
+                    }
+                  ]
+                : [
+                    {
+                      key: previousInterpolatedStyles[0].key,
+                      style: {
+                        opacity: spring(0.2, { precision: 2 })
+                      }
+                    }
+                  ];
+            }
+          }}
+        >
+          {interpolatedStyles => this.rendIcon(interpolatedStyles[0], props)}
+        </TransitionMotion>
       </div>
     );
   }
@@ -162,8 +189,7 @@ Checkbox.propTypes = {
   uncheckedColor: PropTypes.string,
   indeterminateColor: PropTypes.string,
   disabledColor: PropTypes.string,
-  style: PropTypes.object,
-  animationDuration: PropTypes.number.isRequired
+  style: PropTypes.object
 };
 
 Checkbox.defaultProps = {

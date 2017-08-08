@@ -7,21 +7,22 @@ export default class TreeContainer extends React.Component {
     const props = this.props;
     return (
       <TransitionMotion
+        defaultStyles={
+          props.expanded
+            ? [
+                {
+                  key: "expanded",
+                  style: { height: props.contanierHeight }
+                }
+              ]
+            : [
+                {
+                  key: "collapsed",
+                  style: { height: 0 }
+                }
+              ]
+        }
         styles={previousInterpolatedStyles => {
-          if (previousInterpolatedStyles == null)
-            return props.expanded
-              ? [
-                  {
-                    key: "expanded",
-                    style: { height: props.contanierHeight }
-                  }
-                ]
-              : [
-                  {
-                    key: "collapsed",
-                    style: { height: 0 }
-                  }
-                ];
           let expandStyle = previousInterpolatedStyles.find(
             style => style.key === "expanded"
           );

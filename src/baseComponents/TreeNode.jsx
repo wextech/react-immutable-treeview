@@ -34,7 +34,7 @@ export default class TreeNode extends React.Component {
               ? null
               : props.options.expandButtonWidth,
             display: "flex",
-            width: "100%"
+            width: `calc(100% - ${props.options.expandButtonWidth})`
           }}
         >
           {props.checkboxDisplay
@@ -53,7 +53,9 @@ export default class TreeNode extends React.Component {
             style={{
               lineHeight:
                 props.options.nodeHeight + props.options.nodeHeightUnit,
-              width: "100%",
+              width: props.checkboxDisplay
+                ? `calc(100% - ${props.options.checkboxWidth})`
+                : "100%",
               fontSize: props.options.fontSize + "px",
               backgroundColor: props.activated
                 ? "rgba(0, 0, 0, 0.2)"

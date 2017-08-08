@@ -9,6 +9,7 @@ export default class SubImmutableTree extends React.Component {
   eventFunctionFactory(onEventType) {
     return function(e, subNodePath, flag) {
       if (this.props[onEventType] == null) return;
+      if (this.props.location == null) return;
       let nodePath = [this.props.location];
       if (subNodePath.length !== 0)
         nodePath = nodePath.concat("children").concat(subNodePath);
@@ -42,7 +43,7 @@ export default class SubImmutableTree extends React.Component {
 SubImmutableTree.propTypes = {
   options: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
-  location: PropTypes.number.isRequired,
+  location: PropTypes.number,
   levelPadding: PropTypes.string,
   expanded: PropTypes.bool
 };

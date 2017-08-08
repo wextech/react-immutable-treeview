@@ -13,7 +13,7 @@ function addKeyToTreeNode(data, state) {
     return newArray;
   } else {
     let newData = Object.assign({}, data, {
-      id: state.key++,
+      id: String(state.key++),
       children: addKeyToTreeNode(data.children, state)
     });
     return newData;
@@ -36,7 +36,7 @@ class InsertAndRemove extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onRemove = this.onRemove.bind(this);
     this.onInsert = this.onInsert.bind(this);
-    this.onCheck = this.onCheck.bind(this)
+    this.onCheck = this.onCheck.bind(this);
   }
 
   onExpand(e, nodePath, toggled) {
@@ -58,7 +58,7 @@ class InsertAndRemove extends React.Component {
   }
 
   onCheck(e, nodePath, toggled) {
-    let { treeData, lastNodePath } = this.state
+    let { treeData, lastNodePath } = this.state;
     this.setState({
       treeData: treeData.setIn(nodePath.concat("checked"), toggled)
     });
@@ -67,8 +67,8 @@ class InsertAndRemove extends React.Component {
   onInsert(e, nodePath) {
     let { newItemForm } = this.state;
     let title = newItemForm.get("title");
-    if (title === '') return
-    let key = this.state.key++;
+    if (title === "") return;
+    let key = String(this.state.key++);
     let { treeData, lastNodePath } = this.state;
     let insertPath = nodePath.concat("children");
     if (treeData.getIn(insertPath)) {
