@@ -90,9 +90,7 @@ export default class ImmutableTree extends React.Component {
   }
 
   buildHeightCacheDict(treeData, heightCacheDict) {
-    let cachedCnt = heightCacheDict[treeData];
-    if (cachedCnt == null)
-      cachedCnt = this.calcTreeDisplayNodeCnt(treeData, heightCacheDict);
+    let cachedCnt = this.calcTreeDisplayNodeCnt(treeData, heightCacheDict);
     heightCacheDict[treeData] = cachedCnt;
     return heightCacheDict;
   }
@@ -130,11 +128,16 @@ export default class ImmutableTree extends React.Component {
     }
   }
 
+  removeDict = obj => {
+    delete this.state.heightCacheDict[obj];
+  };
+
   render() {
     const props = this.props;
     let { options, keyField } = props;
     return (
       <BaseImmutableTree
+        removeDict={this.removeDict}
         data={this.state.data}
         expanded={true}
         options={this.state.options}

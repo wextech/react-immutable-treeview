@@ -31,10 +31,12 @@ export default class SubImmutableTree extends React.Component {
       location,
       levelPadding,
       expanded,
-      heightCacheDict
+      heightCacheDict,
+      removeDict
     } = this.props;
     return (
       <BaseImmutableTree
+        removeDict={removeDict}
         levelPadding={levelPadding}
         heightCacheDict={heightCacheDict}
         data={data}
@@ -54,7 +56,8 @@ SubImmutableTree.propTypes = {
   location: PropTypes.number,
   levelPadding: PropTypes.string,
   expanded: PropTypes.bool,
-  heightCacheDict: PropTypes.object.isRequired
+  heightCacheDict: PropTypes.object.isRequired,
+  removeDict: PropTypes.func.isRequired
 };
 
 SubImmutableTree.defaultProps = {};

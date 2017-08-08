@@ -4,6 +4,7 @@ import { TransitionMotion, spring, presets } from "react-motion";
 import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import SubImmutableTree from "./SubImmutableTree";
+import Immutable from "immutable";
 
 export default class BaseImmutableTree extends React.Component {
   willEnter() {
@@ -21,6 +22,28 @@ export default class BaseImmutableTree extends React.Component {
       opacity: spring(0)
     };
   }
+
+  didLeave = ({ data }) => {
+    this.props.removeDict(data.nodeData);
+  };
+
+  componentWillReceiveProps(nexProps) {
+    if (nexProps.data !== this.props.data) {
+      let subtract = Immutable.Set.of(this.props.data).subtract(nexProps.data);
+      nexProps.removeDict(this.props.data);
+      subtract.forEach(nodeData => nexProps.removeDict(nodeData));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.removeDict(this.props.data);
+    this.props.data.forEach(childData => this.props.removeDict(childData));
+  }
+
+  removeDictChildren = () => {
+    this.props.removeDict(this.props.data);
+    this.props.data.forEach(childData => this.props.removeDict(childData));
+  };
 
   render() {
     const props = this.props;
@@ -51,6 +74,7 @@ export default class BaseImmutableTree extends React.Component {
           )}
         willEnter={this.willEnter}
         willLeave={this.willLeave}
+        didLeave={this.didLeave}
       >
         {interpolatedStyles =>
           <TreeContainer
@@ -60,6 +84,7 @@ export default class BaseImmutableTree extends React.Component {
             }
             expanded={props.expanded}
             options={props.options}
+            removeDict={this.removeDictChildren}
           >
             {() =>
               interpolatedStyles.map((interpolatedStyle, index) => {
@@ -113,6 +138,7 @@ export default class BaseImmutableTree extends React.Component {
                   >
                     {nodeData.get("children")
                       ? <SubImmutableTree
+                          removeDict={props.removeDict}
                           keyField={props.keyField}
                           expanded={nodeData.get("expanded") || undefined}
                           data={nodeData.get("children")}
@@ -139,6 +165,7 @@ BaseImmutableTree.propTypes = {
   options: PropTypes.any.isRequired,
   data: PropTypes.any.isRequired,
   onClick: PropTypes.func,
+  removeDict: PropTypes.func.isRequired,
   onExpand: PropTypes.func,
   onCheck: PropTypes.func,
   levelPadding: PropTypes.string,

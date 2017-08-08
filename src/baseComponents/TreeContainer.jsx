@@ -3,6 +3,10 @@ import { TransitionMotion, spring } from "react-motion";
 import PropTypes from "prop-types";
 
 export default class TreeContainer extends React.Component {
+  didLeave = ({ key }) => {
+    if (key === "expanded") this.props.removeDict();
+  };
+
   render() {
     const props = this.props;
     return (
@@ -63,6 +67,7 @@ export default class TreeContainer extends React.Component {
                 ];
           }
         }}
+        didLeave={this.didLeave}
       >
         {interpolatedStyles => {
           return (
@@ -92,6 +97,7 @@ export default class TreeContainer extends React.Component {
 TreeContainer.propTypes = {
   expanded: PropTypes.bool,
   children: PropTypes.any,
+  removeDict: PropTypes.func.isRequired,
   contanierHeight: PropTypes.number.isRequired,
   levelPadding: PropTypes.string,
   options: PropTypes.any.isRequired
