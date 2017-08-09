@@ -31,7 +31,8 @@ export default {
               title: "child3"
             },
             {
-              title: "child4"
+              title: "child4",
+              children:[]
             }
           ]
         }

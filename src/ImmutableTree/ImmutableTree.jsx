@@ -52,7 +52,11 @@ export default class ImmutableTree extends React.Component {
   }
 
   calcTreeDisplayNodeCnt(treeData, heightCacheDict, finalLatch) {
-    if (treeData == null || treeData.count() === 0) return 0;
+    if (treeData == null) return 0;
+    if (treeData.count() === 0) {
+      heightCacheDict[treeData] = 0;
+      return 0;
+    }
     let cachedCnt = heightCacheDict[treeData];
     if (cachedCnt == null || finalLatch !== 0) {
       cachedCnt = treeData.reduce((displayNodeCnt, curNodeData) => {

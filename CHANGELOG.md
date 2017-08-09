@@ -1,12 +1,16 @@
-## 0.3.5 (Aug 08, 2017)
+## 0.3.6 (Aug 09, 2017)
 
-* improve height caculating speed
-* fix collapsed tree node flash bug
+* Fix empty child tree height cache bug
+
+## 0.3.5 (Aug 09, 2017)
+
+* Improve height caculating speed
+* Fix collapsed tree node flash bug
 
 ## 0.3.0 (Aug 08, 2017)
 
-* change velocity-react to react-motion
-* fix animation bugs
+* Change velocity-react to react-motion
+* Fix animation bugs
 
 ## 0.2.0 (Aug 03, 2017)
 
