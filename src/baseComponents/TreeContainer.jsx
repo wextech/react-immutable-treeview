@@ -11,60 +11,45 @@ export default class TreeContainer extends React.Component {
     const props = this.props;
     return (
       <TransitionMotion
-        defaultStyles={
-          props.expanded
-            ? [
+        defaultStyles={[
+          {
+            key: "expanded",
+            style: { height: props.contanierHeight }
+          }
+        ]}
+        styles={previousInterpolatedStyles => {
+          let expandStyle = previousInterpolatedStyles[0];
+          if (props.contanierHeight === 0) {
+            if (expandStyle.style.height == null) {
+              return [
                 {
                   key: "expanded",
-                  style: { height: props.contanierHeight }
+                  style: { height: spring(props.contanierHeight) }
                 }
-              ]
-            : [
-                {
-                  key: "collapsed",
-                  style: { height: 0 }
-                }
-              ]
-        }
-        styles={previousInterpolatedStyles => {
-          let expandStyle = previousInterpolatedStyles.find(
-            style => style.key === "expanded"
-          );
-          if (expandStyle) {
-            return props.expanded
-              ? [
-                  {
-                    key: "expanded",
-                    style: { height: spring(props.contanierHeight) }
-                  }
-                ]
-              : expandStyle.style.height === 0
-                ? [
-                    {
-                      key: "collapsed",
-                      style: { height: 0 }
-                    }
-                  ]
-                : [
-                    {
-                      key: "expanded",
-                      style: { height: spring(0) }
-                    }
-                  ];
+              ];
+            }
+            return [
+              {
+                key: "expanded",
+                style: { height: spring(0) }
+              }
+            ];
           } else {
-            return props.expanded
-              ? [
-                  {
-                    key: "expanded",
-                    style: { height: spring(props.contanierHeight) }
-                  }
-                ]
-              : [
-                  {
-                    key: "collapsed",
-                    style: { height: 0 }
-                  }
-                ];
+            if (expandStyle.style.height === props.contanierHeight) {
+              return [
+                {
+                  key: "expanded",
+                  style: {}
+                }
+              ];
+            } else {
+              return [
+                {
+                  key: "expanded",
+                  style: { height: spring(props.contanierHeight) }
+                }
+              ];
+            }
           }
         }}
         didLeave={this.didLeave}
@@ -74,18 +59,19 @@ export default class TreeContainer extends React.Component {
             <ul
               className={interpolatedStyles[0].key}
               style={{
-                height:
-                  interpolatedStyles[0].style.height +
-                  props.options.nodeHeightUnit,
+                height: interpolatedStyles[0].style.height
+                  ? "auto"
+                  : interpolatedStyles[0].style.height +
+                    props.options.nodeHeightUnit,
                 listStyle: "none",
                 margin: 0,
                 paddingLeft: props.levelPadding,
                 overflow: "hidden"
               }}
             >
-              {interpolatedStyles[0].key === "expanded"
-                ? props.children()
-                : null}
+              {interpolatedStyles[0].style.height === 0
+                ? null
+                : props.children()}
             </ul>
           );
         }}
@@ -95,7 +81,6 @@ export default class TreeContainer extends React.Component {
 }
 
 TreeContainer.propTypes = {
-  expanded: PropTypes.bool,
   children: PropTypes.any,
   removeDict: PropTypes.func.isRequired,
   contanierHeight: PropTypes.number.isRequired,

@@ -82,7 +82,6 @@ export default class BaseImmutableTree extends React.Component {
             contanierHeight={
               props.heightCacheDict[props.data] * props.options.nodeHeight
             }
-            expanded={props.expanded}
             options={props.options}
             removeDict={this.removeDictChildren}
           >
