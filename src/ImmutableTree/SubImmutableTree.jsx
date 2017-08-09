@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import Immutable from "immutable";
 import BaseImmutableTree from "./BaseImmutableTree";

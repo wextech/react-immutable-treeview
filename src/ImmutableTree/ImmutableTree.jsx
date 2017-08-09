@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ImmutablePropTypes from "react-immutable-proptypes";
-import TreeContainer from "../baseComponents/TreeContainer";
 import TreeNode from "../baseComponents/TreeNode";
 import BaseImmutableTree from "./BaseImmutableTree";
 import Immutable from "immutable";
@@ -133,6 +132,7 @@ export default class ImmutableTree extends React.Component {
   }
 
   removeDict = obj => {
+    if (obj.count() === 0) return;
     delete this.state.heightCacheDict[obj];
   };
 

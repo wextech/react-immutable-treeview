@@ -40,11 +40,6 @@ export default class BaseImmutableTree extends React.Component {
     this.props.data.forEach(childData => this.props.removeDict(childData));
   }
 
-  removeDictChildren = () => {
-    this.props.removeDict(this.props.data);
-    this.props.data.forEach(childData => this.props.removeDict(childData));
-  };
-
   render() {
     const props = this.props;
     return (
@@ -83,7 +78,6 @@ export default class BaseImmutableTree extends React.Component {
               props.heightCacheDict[props.data] * props.options.nodeHeight
             }
             options={props.options}
-            removeDict={this.removeDictChildren}
           >
             {() =>
               interpolatedStyles.map((interpolatedStyle, index) => {
