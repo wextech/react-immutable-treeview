@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import ExpandButton from "./ExpandButton";
 import Checkbox from "./Checkbox";
+import LoadingIcon from "./LoadingIcon";
 
 export default class TreeNode extends React.Component {
   renderHeader() {
@@ -49,28 +50,35 @@ export default class TreeNode extends React.Component {
                 onChange={props.onCheck}
               />
             : null}
-          <span
+          <div
             style={{
-              lineHeight:
-                props.options.nodeHeight + props.options.nodeHeightUnit,
-              width: props.checkboxDisplay
-                ? `calc(100% - ${props.options.checkboxWidth})`
-                : "100%",
-              fontSize: props.options.fontSize + "px",
+              display: "flex",
               backgroundColor: props.activated
                 ? "rgba(0, 0, 0, 0.2)"
-                : "rgba(0, 0, 0, 0)",
-              whiteSpace: "nowrap",
-              cursor: "default",
-              padding: "0 8px",
-              overflow: "hidden",
-              userSelect: "none",
-              textOverflow: "ellipsis"
+                : "rgba(0, 0, 0, 0)"
             }}
-            onClick={e => props.onClick(e, true)}
           >
-            {props.title}
-          </span>
+            <span
+              style={{
+                lineHeight:
+                  props.options.nodeHeight + props.options.nodeHeightUnit,
+                width: props.checkboxDisplay
+                  ? `calc(100% - ${props.options.checkboxWidth})`
+                  : "100%",
+                fontSize: props.options.fontSize + "px",
+                whiteSpace: "nowrap",
+                cursor: "default",
+                padding: "0 8px",
+                overflow: "hidden",
+                userSelect: "none",
+                textOverflow: "ellipsis"
+              }}
+              onClick={e => props.onClick(e, true)}
+            >
+              {props.title}
+            </span>
+            {props.loading ? <LoadingIcon options={props.options} /> : null}
+          </div>
         </div>
       </div>
     );
@@ -99,6 +107,7 @@ TreeNode.propTypes = {
   checkboxDisplay: PropTypes.bool,
   expandButtonDisplay: PropTypes.bool,
   expanded: PropTypes.bool,
+  loading: PropTypes.bool,
   activated: PropTypes.bool,
   onClick: PropTypes.func,
   onExpand: PropTypes.func,
@@ -114,6 +123,7 @@ TreeNode.defaultProps = {
   style: {},
   checked: "unchecked",
   checkboxDisplay: false,
+  loading: false,
   expandButtonDisplay: true,
   expanded: false,
   activated: false,

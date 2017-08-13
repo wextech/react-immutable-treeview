@@ -109,6 +109,7 @@ export default class BaseImmutableTree extends React.Component {
                             !nodeData.get("expanded")
                           )}
                     activated={nodeData.get("activated") || undefined}
+                    loading={nodeData.get("loading")}
                     onClick={e =>
                       interpolatedStyle.style.isDeleted
                         ? null
