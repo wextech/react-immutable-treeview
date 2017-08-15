@@ -34,7 +34,7 @@ export default class ExpandButton extends React.Component {
           {
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end",
+            justifyContent: "center",
             cursor: "pointer",
             height: "32px",
             width: "32px"

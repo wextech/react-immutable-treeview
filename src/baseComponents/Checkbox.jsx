@@ -104,7 +104,7 @@ export default class Checkbox extends Component {
           {
             display: "flex",
             alignItems: "center",
-            justifyContent: "flex-end"
+            justifyContent: "center"
           },
           props.style
         )}
