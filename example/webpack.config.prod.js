@@ -30,7 +30,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./example/index.html", // Load a custom template
       inject: "body", // Inject all scripts into the body
-      title: "Immutable Tree",
+      title: "React Immutable Tree",
+      base: "/react-immutable-treeview",
       filename: "index.html"
     }),
     new webpack.NoEmitOnErrorsPlugin()
