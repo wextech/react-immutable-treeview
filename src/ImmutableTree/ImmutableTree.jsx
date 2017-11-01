@@ -7,7 +7,6 @@ import Immutable from "immutable";
 import defaultOptions from "../defaultOptions.js";
 
 const heightMatchExp = /(\d*)(\.\d*)?(\w*)/;
-
 function transformOptions(options) {
   let [_, numberPart1, numberPart2, heightUnit] = options.nodeHeight.match(
     heightMatchExp
@@ -94,6 +93,7 @@ export default class ImmutableTree extends React.Component {
 
   buildHeightCacheDict(treeData, heightCacheDict) {
     let cachedCnt = this.calcTreeDisplayNodeCnt(treeData, heightCacheDict);
+
     heightCacheDict[treeData] = cachedCnt;
     return heightCacheDict;
   }

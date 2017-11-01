@@ -7,19 +7,19 @@ import SubImmutableTree from "./SubImmutableTree";
 import Immutable from "immutable";
 
 export default class BaseImmutableTree extends React.Component {
-  willEnter() {
+  willEnter(isAnimation) {
     return {
       isInserted: 1,
-      height: 0,
-      opacity: 0
+      height: isAnimation ? spring(0) : 0,
+      opacity: isAnimation ? spring(0) : 0
     };
   }
 
-  willLeave() {
+  willLeave(isAnimation) {
     return {
       isDeleted: 1,
-      height: spring(0),
-      opacity: spring(0)
+      height: isAnimation ? spring(0) : 0,
+      opacity: isAnimation ? spring(0) : 0
     };
   }
 
@@ -42,6 +42,7 @@ export default class BaseImmutableTree extends React.Component {
 
   render() {
     const props = this.props;
+    const { isAnimation } = props.options;
     return (
       <TransitionMotion
         styles={props.data
@@ -49,9 +50,11 @@ export default class BaseImmutableTree extends React.Component {
           .map((nodeData, index) => ({
             key: nodeData.get("id") || String(index),
             style: {
-              height: spring(
-                props.heightCacheDict[nodeData] * props.options.nodeHeight
-              ),
+              height: isAnimation
+                ? spring(
+                    props.heightCacheDict[nodeData] * props.options.nodeHeight
+                  )
+                : props.heightCacheDict[nodeData] * props.options.nodeHeight,
               opacity: 1,
               isDeleted: 0,
               isInserted: 0
@@ -67,11 +70,11 @@ export default class BaseImmutableTree extends React.Component {
               }
             })
           )}
-        willEnter={this.willEnter}
-        willLeave={this.willLeave}
+        willEnter={() => this.willEnter(isAnimation)}
+        willLeave={() => this.willLeave(isAnimation)}
         didLeave={this.didLeave}
       >
-        {interpolatedStyles =>
+        {interpolatedStyles => (
           <TreeContainer
             levelPadding={props.levelPadding}
             contanierHeight={
@@ -129,26 +132,27 @@ export default class BaseImmutableTree extends React.Component {
                         ? null
                         : props.onCheck(e, [nodeIndex], checked)}
                   >
-                    {nodeData.get("children")
-                      ? <SubImmutableTree
-                          removeDict={props.removeDict}
-                          keyField={props.keyField}
-                          expanded={nodeData.get("expanded") || undefined}
-                          data={nodeData.get("children")}
-                          location={
-                            interpolatedStyle.style.isDeleted ? null : nodeIndex
-                          }
-                          heightCacheDict={props.heightCacheDict}
-                          options={props.options}
-                          onCheck={props.onCheck}
-                          onClick={props.onClick}
-                          onExpand={props.onExpand}
-                        />
-                      : null}
+                    {nodeData.get("children") ? (
+                      <SubImmutableTree
+                        removeDict={props.removeDict}
+                        keyField={props.keyField}
+                        expanded={nodeData.get("expanded") || undefined}
+                        data={nodeData.get("children")}
+                        location={
+                          interpolatedStyle.style.isDeleted ? null : nodeIndex
+                        }
+                        heightCacheDict={props.heightCacheDict}
+                        options={props.options}
+                        onCheck={props.onCheck}
+                        onClick={props.onClick}
+                        onExpand={props.onExpand}
+                      />
+                    ) : null}
                   </TreeNode>
                 );
               })}
-          </TreeContainer>}
+          </TreeContainer>
+        )}
       </TransitionMotion>
     );
   }

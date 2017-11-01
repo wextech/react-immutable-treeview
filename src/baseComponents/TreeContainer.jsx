@@ -3,9 +3,9 @@ import { TransitionMotion, spring } from "react-motion";
 import PropTypes from "prop-types";
 
 export default class TreeContainer extends React.Component {
-
   render() {
     const props = this.props;
+    const { isAnimation } = props.options;
     return (
       <TransitionMotion
         defaultStyles={[
@@ -21,14 +21,18 @@ export default class TreeContainer extends React.Component {
               return [
                 {
                   key: "expanded",
-                  style: { height: spring(props.contanierHeight) }
+                  style: {
+                    height: isAnimation
+                      ? spring(props.contanierHeight)
+                      : props.contanierHeight
+                  }
                 }
               ];
             }
             return [
               {
                 key: "expanded",
-                style: { height: spring(0) }
+                style: { height: isAnimation ? spring(0) : 0 }
               }
             ];
           } else {
@@ -43,7 +47,11 @@ export default class TreeContainer extends React.Component {
               return [
                 {
                   key: "expanded",
-                  style: { height: spring(props.contanierHeight) }
+                  style: {
+                    height: isAnimation
+                      ? spring(props.contanierHeight)
+                      : props.contanierHeight
+                  }
                 }
               ];
             }

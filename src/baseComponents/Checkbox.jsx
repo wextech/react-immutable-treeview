@@ -98,6 +98,7 @@ export default class Checkbox extends Component {
 
   render() {
     let { props } = this;
+    let { isAnimation } = props.options;
     return (
       <div
         style={Object.assign(
@@ -141,7 +142,9 @@ export default class Checkbox extends Component {
               return [
                 {
                   key: props.checked,
-                  style: { opacity: spring(1, { precision: 2 }) }
+                  style: {
+                    opacity: isAnimation ? spring(1, { precision: 2 }) : 1
+                  }
                 }
               ];
             } else {
@@ -158,7 +161,9 @@ export default class Checkbox extends Component {
                     {
                       key: previousInterpolatedStyles[0].key,
                       style: {
-                        opacity: spring(0.2, { precision: 2 })
+                        opacity: isAnimation
+                          ? spring(0.2, { precision: 2 })
+                          : 0.2
                       }
                     }
                   ];

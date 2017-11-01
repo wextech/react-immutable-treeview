@@ -17,17 +17,18 @@ export default class TreeNode extends React.Component {
           height: props.options.nodeHeight
         }}
       >
-        {expandButtonDisplay
-          ? <ExpandButton
-              style={{
-                height: props.options.nodeHeight + props.options.nodeHeightUnit,
-                width: props.options.expandButtonWidth,
-                minWidth: props.options.expandButtonWidth
-              }}
-              expanded={props.expanded}
-              onClick={props.onExpand}
-            />
-          : null}
+        {expandButtonDisplay ? (
+          <ExpandButton
+            style={{
+              height: props.options.nodeHeight + props.options.nodeHeightUnit,
+              width: props.options.expandButtonWidth,
+              minWidth: props.options.expandButtonWidth
+            }}
+            options={props.options}
+            expanded={props.expanded}
+            onClick={props.onExpand}
+          />
+        ) : null}
         <div
           style={{
             marginLeft: expandButtonDisplay
@@ -37,18 +38,19 @@ export default class TreeNode extends React.Component {
             width: `calc(100% - ${props.options.expandButtonWidth})`
           }}
         >
-          {props.checkboxDisplay
-            ? <Checkbox
-                style={{
-                  width: props.options.checkboxWidth,
-                  height: props.options.nodeHeight,
-                  minWidth: props.options.checkboxWidth
-                }}
-                disabled={props.checkboxDisabled}
-                checked={props.checked}
-                onChange={props.onCheck}
-              />
-            : null}
+          {props.checkboxDisplay ? (
+            <Checkbox
+              style={{
+                width: props.options.checkboxWidth,
+                height: props.options.nodeHeight,
+                minWidth: props.options.checkboxWidth
+              }}
+              options={props.options}
+              disabled={props.checkboxDisabled}
+              checked={props.checked}
+              onChange={props.onCheck}
+            />
+          ) : null}
           <span
             style={{
               lineHeight:
