@@ -1,15 +1,19 @@
 {
   "name": "react-immutable-treeview",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "React Tree View Component Accept Immutable.js Data",
   "main": "index.js",
   "scripts": {
     "example": "node ./example/devServer.js",
-    "build": "npm run build:babel && npm run build:copy-files && npm run build:es",
-    "build:es": " cross-env BABEL_ENV=es babel ./src/index.js --out-file ./build/index.es.js",
-    "build:babel": "cross-env NODE_ENV=release babel ./src --out-dir ./build --ignore spec.js",
+    "build":
+      "npm run build:babel && npm run build:copy-files && npm run build:es",
+    "build:es":
+      " cross-env BABEL_ENV=es babel ./src/index.js --out-file ./build/index.es.js",
+    "build:babel":
+      "cross-env NODE_ENV=release babel ./src --out-dir ./build --ignore spec.js",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
-    "build:example": "npm run clean:build &&webpack --colors --config ./example/webpack.config.prod.js",
+    "build:example":
+      "npm run clean:build &&webpack --colors --config ./example/webpack.config.prod.js",
     "clean:build": "rimraf build",
     "prebuild": "npm run clean:build",
     "postpublish": "npm run build && cd build && npm publish",
